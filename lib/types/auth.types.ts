@@ -3,7 +3,7 @@
  * Based on the API responses provided
  */
 
-export type RatingPreference = 'TMDB' | 'IMDB' | 'ROTTEN_TOMATOES'
+export type RatingPreference = "TMDB" | "IMDB" | "ROTTEN_TOMATOES"
 
 export interface User {
   id: string
@@ -39,7 +39,7 @@ export interface AuthResponse extends AuthTokens {
   user?: User
 }
 
-export interface RefreshTokenResponse extends AuthTokens {}
+export type RefreshTokenResponse = AuthTokens
 
 export interface AuthError {
   message: string

@@ -3,12 +3,12 @@
  * Provides reactive authentication state and mutations
  */
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useRouter } from 'next/navigation'
-import { authService } from '@/lib/api/auth-service'
-import type { LoginCredentials, RegisterCredentials, User } from '@/lib/types'
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useRouter } from "next/navigation"
+import { authService } from "@/lib/api/auth-service"
+import type { LoginCredentials, RegisterCredentials } from "@/lib/types"
 
-const AUTH_QUERY_KEY = ['auth', 'user'] as const
+const AUTH_QUERY_KEY = ["auth", "user"] as const
 
 /**
  * Hook to get current user
@@ -37,10 +37,10 @@ export function useLogin() {
       // Fetch user data after successful login
       const user = await authService.getCurrentUser()
       queryClient.setQueryData(AUTH_QUERY_KEY, user)
-      router.push('/dashboard')
+      router.push("/dashboard")
     },
     onError: (error) => {
-      console.error('Login error:', error)
+      console.error("Login error:", error)
     },
   })
 }
@@ -56,10 +56,10 @@ export function useRegister() {
       authService.register(credentials),
     onSuccess: () => {
       // Redirect to login after successful registration
-      router.push('/login')
+      router.push("/login")
     },
     onError: (error) => {
-      console.error('Registration error:', error)
+      console.error("Registration error:", error)
     },
   })
 }
@@ -80,7 +80,7 @@ export function useLogout() {
       // Clear user data from cache
       queryClient.setQueryData(AUTH_QUERY_KEY, null)
       queryClient.clear()
-      router.push('/login')
+      router.push("/login")
     },
   })
 }

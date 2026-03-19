@@ -84,7 +84,7 @@ export function ErrorMessage({
   onRetry,
 }: ErrorMessageProps) {
   return (
-    <div className="flex min-h-[400px] items-center justify-center p-4">
+    <div className="flex min-h-100 items-center justify-center p-4">
       <div className="w-full max-w-md space-y-4 text-center">
         <div className="flex justify-center">
           <AlertTriangle className="size-10 text-destructive" />

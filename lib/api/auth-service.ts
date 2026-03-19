@@ -3,15 +3,15 @@
  * Handles all authentication-related API calls
  */
 
-import { apiClient } from './client'
-import { apiEndpoints } from '@/lib/config/env'
-import { tokenStorage } from '@/lib/auth/token-storage'
+import { apiClient } from "./client"
+import { apiEndpoints } from "@/lib/config/env"
+import { tokenStorage } from "@/lib/auth/token-storage"
 import type {
   LoginCredentials,
   RegisterCredentials,
   AuthTokens,
   User,
-} from '@/lib/types'
+} from "@/lib/types"
 
 export const authService = {
   /**
@@ -35,7 +35,10 @@ export const authService = {
    * Register a new user
    */
   register: async (credentials: RegisterCredentials): Promise<User> => {
-    const response = await apiClient.post<User>('/sessions/register', credentials)
+    const response = await apiClient.post<User>(
+      "/sessions/register",
+      credentials
+    )
     return response.data
   },
 
@@ -46,7 +49,7 @@ export const authService = {
     const refreshToken = tokenStorage.getRefreshToken()
 
     if (!refreshToken) {
-      throw new Error('No refresh token available')
+      throw new Error("No refresh token available")
     }
 
     const response = await apiClient.post<AuthTokens>(
@@ -91,16 +94,11 @@ export const authService = {
       if (!token) {
         return null
       }
-
-      // Decode token to get user ID
-      const payload = JSON.parse(atob(token.split('.')[1]))
-      const userId = payload.sub
-
       // Fetch user data
       const response = await apiClient.get<User>(`/me/profile`)
       return response.data
     } catch (error) {
-      console.error('Failed to get current user:', error)
+      console.error("Failed to get current user:", error)
       return null
     }
   },
