@@ -2,20 +2,28 @@
 
 import Image from "next/image"
 import { useUser, useLogout } from "@/hooks/use-auth"
+import { useInsights } from "@/hooks/useInsights"
 import { LoadingPage } from "@/components/ui/loading"
 import { ErrorMessage } from "@/components/error-boundary"
 import { Button } from "@/components/ui/button"
+import { InsightsStats } from "@/components/dashboard/InsightsStats"
+import { ActivityChart } from "@/components/dashboard/ActivityChart"
 import { LogOut, User as UserIcon } from "lucide-react"
 
 export default function DashboardPage() {
-  const { data: user, isLoading, error } = useUser()
+  const { data: user, isLoading: isLoadingUser, error: userError } = useUser()
+  const {
+    data: insights,
+    isLoading: isLoadingInsights,
+    error: insightsError,
+  } = useInsights()
   const logoutMutation = useLogout()
 
-  if (isLoading) {
-    return <LoadingPage message="Carregando informações do usuário..." />
+  if (isLoadingUser || isLoadingInsights) {
+    return <LoadingPage message="Carregando informações..." />
   }
 
-  if (error) {
+  if (userError) {
     return (
       <ErrorMessage
         title="Erro ao carregar dados"
@@ -75,35 +83,20 @@ export default function DashboardPage() {
       </div>
 
       {/* Dashboard Stats */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {insightsError ? (
         <div className="rounded-lg border bg-card p-6">
-          <h3 className="text-sm font-medium text-muted-foreground">
-            Filmes Assistidos
-          </h3>
-          <p className="mt-2 text-3xl font-bold">0</p>
+          <p className="text-sm text-muted-foreground">
+            Não foi possível carregar as estatísticas.
+          </p>
         </div>
-        <div className="rounded-lg border bg-card p-6">
-          <h3 className="text-sm font-medium text-muted-foreground">
-            Lista de Desejos
-          </h3>
-          <p className="mt-2 text-3xl font-bold">0</p>
-        </div>
-        <div className="rounded-lg border bg-card p-6">
-          <h3 className="text-sm font-medium text-muted-foreground">
-            Avaliações
-          </h3>
-          <p className="mt-2 text-3xl font-bold">0</p>
-        </div>
-      </div>
+      ) : insights ? (
+        <>
+          <InsightsStats insights={insights} />
 
-      {/* Main Content Area */}
-      <div className="rounded-lg border bg-card p-8">
-        <h2 className="mb-4 text-xl font-semibold">Atividade Recente</h2>
-        <p className="text-center text-sm text-muted-foreground">
-          Nenhuma atividade recente ainda. Comece adicionando filmes à sua
-          lista!
-        </p>
-      </div>
+          {/* Activity Chart */}
+          <ActivityChart activityByDayOfWeek={insights.activityByDayOfWeek} />
+        </>
+      ) : null}
     </div>
   )
 }

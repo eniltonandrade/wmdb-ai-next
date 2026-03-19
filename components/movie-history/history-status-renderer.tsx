@@ -76,7 +76,7 @@ export function HistoryStatusRenderer({
         {/* Search Bar */}
         <SearchBar value={searchQuery} onChange={onSearchChange} />
 
-        <div className="flex min-h-[400px] flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
+        <div className="flex min-h-100 flex-col items-center justify-center rounded-lg border border-dashed p-8 text-center">
           <Film className="mb-4 size-12 text-muted-foreground" />
           <h2 className="mb-2 text-xl font-semibold">
             {isSearching

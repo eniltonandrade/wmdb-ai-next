@@ -82,4 +82,16 @@ export interface MovieHistoryParams {
   sort_by?: SortByOption
 }
 
+export interface ActivityByDayOfWeek {
+  weekday: number // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+  count: number
+}
+
+export interface UserInsights {
+  averageRating: number
+  movieCount: number
+  totalRuntime: number // in minutes
+  activityByDayOfWeek: ActivityByDayOfWeek[]
+}
+
 // Made with Bob

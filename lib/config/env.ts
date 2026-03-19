@@ -18,6 +18,7 @@ export const apiEndpoints = {
   },
   user: {
     profile: "/me/profile",
+    insights: "/me/insights",
   },
   movies: {
     history: "/me/history/movies",

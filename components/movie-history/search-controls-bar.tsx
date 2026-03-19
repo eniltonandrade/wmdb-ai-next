@@ -39,7 +39,7 @@ export function SearchControlsBar({
 
       {/* Sort */}
       <Select value={sortBy} onValueChange={onSortChange}>
-        <SelectTrigger className="w-full sm:w-[280px]">
+        <SelectTrigger className="w-full sm:w-70">
           <SelectValue placeholder="Ordenar por" />
         </SelectTrigger>
         <SelectContent>
