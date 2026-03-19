@@ -20,13 +20,18 @@ const navItems = [
   },
 ]
 
-export function SidebarNav() {
+interface SidebarNavProps {
+  onNavigate?: () => void
+}
+
+export function SidebarNav({ onNavigate }: SidebarNavProps) {
   const pathname = usePathname()
   const logoutMutation = useLogout()
 
   return (
     <div className="flex h-full flex-col">
-      <div className="mb-8">
+      {/* Header - Hidden on mobile as it's shown in the top bar */}
+      <div className="mb-8 hidden lg:block">
         <h2 className="mb-2 px-4 text-lg font-semibold">WMDB</h2>
         <p className="px-4 text-sm text-muted-foreground">
           Seu gerenciador de filmes
@@ -42,6 +47,7 @@ export function SidebarNav() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onNavigate}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
                 isActive

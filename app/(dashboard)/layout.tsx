@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { SidebarNav } from "@/components/dashboard/sidebar-nav"
+import { DashboardShell } from "@/components/dashboard/dashboard-shell"
 
 export const metadata: Metadata = {
   title: {
@@ -14,17 +14,7 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <div className="min-h-screen">
-      <div className="flex">
-        <aside className="min-h-screen w-64 border-r p-4">
-          <SidebarNav />
-        </aside>
-
-        <main className="flex-1 p-8">{children}</main>
-      </div>
-    </div>
-  )
+  return <DashboardShell>{children}</DashboardShell>
 }
 
 // Made with Bob
