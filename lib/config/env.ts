@@ -24,6 +24,7 @@ export const apiEndpoints = {
     peopleRankings: "/me/insights/people/rankings",
     watchedYears: "/me/insights/watched-years",
     releaseYears: "/me/insights/release-years",
+    companyInsights: "/me/insights/companies",
   },
   movies: {
     history: "/me/history/movies",

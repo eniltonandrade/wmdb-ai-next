@@ -181,4 +181,30 @@ export interface YearStatsResponse {
   results: YearStats[]
 }
 
+export interface CompanyStats {
+  id: string
+  tmdbId: number
+  name: string
+  logoPath: string | null
+  appearances: number
+  avgRating: number
+}
+
+export interface CompanyStatsResponse {
+  total: number
+  results: CompanyStats[]
+}
+
+export type CompanyStatsSortBy =
+  | "average.desc"
+  | "average.asc"
+  | "count.asc"
+  | "count.desc"
+  | "name.asc"
+
+export interface CompanyStatsParams {
+  sort_by?: CompanyStatsSortBy
+  page?: number
+}
+
 // Made with Bob

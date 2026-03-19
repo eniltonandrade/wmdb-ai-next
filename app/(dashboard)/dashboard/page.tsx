@@ -7,7 +7,6 @@ import { LoadingPage } from "@/components/ui/loading"
 import { ErrorMessage } from "@/components/error-boundary"
 import { Button } from "@/components/ui/button"
 import { InsightsStats } from "@/components/dashboard/InsightsStats"
-import { ActivityChart } from "@/components/dashboard/ActivityChart"
 import { LogOut, User as UserIcon } from "lucide-react"
 
 export default function DashboardPage() {

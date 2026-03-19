@@ -3,12 +3,14 @@
 import { useGenreInsights } from "@/hooks/useGenreInsights"
 import { useWatchedYears, useReleaseYears } from "@/hooks/useYearStats"
 import { useInsights } from "@/hooks/useInsights"
+import { useCompanyInsights } from "@/hooks/useCompanyInsights"
 import { LoadingPage } from "@/components/ui/loading"
 import { ErrorMessage } from "@/components/error-boundary"
 import { GenreDistributionChart } from "@/components/statistics/GenreDistributionChart"
 import { PeopleRankingChart } from "@/components/statistics/PeopleRankingChart"
 import { YearProgressionChart } from "@/components/statistics/YearProgressionChart"
 import { ActivityByDayChart } from "@/components/statistics/ActivityByDayChart"
+import { CompanyDistributionChart } from "@/components/statistics/CompanyDistributionChart"
 
 export default function StatisticsPage() {
   const {
@@ -23,6 +25,9 @@ export default function StatisticsPage() {
   const { data: releaseYearsData, isLoading: releaseYearsLoading } =
     useReleaseYears()
   const { data: insights, isLoading: insightsLoading } = useInsights()
+  const { data: companyData } = useCompanyInsights({
+    sort_by: "count.desc",
+  })
 
   if (genreLoading) {
     return <LoadingPage message="Carregando estatísticas..." />
@@ -38,6 +43,7 @@ export default function StatisticsPage() {
   }
 
   const genres = genreData?.results ?? []
+  const companies = companyData?.results ?? []
 
   return (
     <div className="space-y-8">
@@ -51,7 +57,7 @@ export default function StatisticsPage() {
 
       {/* Statistics Grid */}
       <div className="space-y-4">
-        {/* Top Row: Genre Distribution and People Ranking */}
+        {/* Top Row: Genre Distribution and Company Distribution */}
         <div className="grid gap-4 md:grid-cols-2">
           {/* Genre Distribution */}
           {genres.length > 0 ? (
@@ -65,7 +71,21 @@ export default function StatisticsPage() {
             </div>
           )}
 
-          {/* People Ranking */}
+          {/* Company Distribution */}
+          {companies.length > 0 ? (
+            <CompanyDistributionChart companies={companies} limit={5} />
+          ) : (
+            <div className="rounded-lg border bg-card p-8">
+              <p className="text-center text-sm text-muted-foreground">
+                Nenhum dado de produtora disponível ainda. Comece assistindo
+                filmes!
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* Second Row: People Ranking */}
+        <div className="grid gap-4 md:grid-cols-2">
           <PeopleRankingChart />
         </div>
 
