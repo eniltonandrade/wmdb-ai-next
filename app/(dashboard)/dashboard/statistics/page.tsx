@@ -2,11 +2,13 @@
 
 import { useGenreInsights } from "@/hooks/useGenreInsights"
 import { useWatchedYears, useReleaseYears } from "@/hooks/useYearStats"
+import { useInsights } from "@/hooks/useInsights"
 import { LoadingPage } from "@/components/ui/loading"
 import { ErrorMessage } from "@/components/error-boundary"
 import { GenreDistributionChart } from "@/components/statistics/GenreDistributionChart"
 import { PeopleRankingChart } from "@/components/statistics/PeopleRankingChart"
 import { YearProgressionChart } from "@/components/statistics/YearProgressionChart"
+import { ActivityByDayChart } from "@/components/statistics/ActivityByDayChart"
 
 export default function StatisticsPage() {
   const {
@@ -20,6 +22,7 @@ export default function StatisticsPage() {
     useWatchedYears()
   const { data: releaseYearsData, isLoading: releaseYearsLoading } =
     useReleaseYears()
+  const { data: insights, isLoading: insightsLoading } = useInsights()
 
   if (genreLoading) {
     return <LoadingPage message="Carregando estatísticas..." />
@@ -66,7 +69,7 @@ export default function StatisticsPage() {
           <PeopleRankingChart />
         </div>
 
-        {/* Bottom Row: Year Progression Charts */}
+        {/* Middle Row: Year Progression Charts and Activity */}
         <div className="grid gap-4 md:grid-cols-2">
           {/* Watched Years */}
           <YearProgressionChart
@@ -80,6 +83,12 @@ export default function StatisticsPage() {
             title="Filmes por Ano de Lançamento"
             data={releaseYearsData?.results ?? []}
             isLoading={releaseYearsLoading}
+          />
+
+          {/* Activity by Day of Week */}
+          <ActivityByDayChart
+            activityByDayOfWeek={insights?.activityByDayOfWeek ?? []}
+            isLoading={insightsLoading}
           />
         </div>
       </div>

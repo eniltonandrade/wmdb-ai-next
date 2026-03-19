@@ -90,12 +90,7 @@ export default function DashboardPage() {
           </p>
         </div>
       ) : insights ? (
-        <>
-          <InsightsStats insights={insights} />
-
-          {/* Activity Chart */}
-          <ActivityChart activityByDayOfWeek={insights.activityByDayOfWeek} />
-        </>
+        <InsightsStats insights={insights} />
       ) : null}
     </div>
   )
