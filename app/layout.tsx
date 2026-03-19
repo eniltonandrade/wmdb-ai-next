@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { QueryProvider } from "@/lib/providers/query-provider"
 import { AuthProvider } from "@/lib/auth/auth-context"
 import { cn } from "@/lib/utils"
+import { Metadata } from "next"
 
 const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -13,7 +14,7 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
 })
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "WMDB - Watch Movie Database",
   description: "Your personal movie database",
 }
