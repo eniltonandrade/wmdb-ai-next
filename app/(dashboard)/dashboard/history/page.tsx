@@ -5,6 +5,7 @@ import { useInView } from "react-intersection-observer"
 import { LayoutGrid, Table, Film, Search, X } from "lucide-react"
 import { useMovieHistory } from "@/hooks/use-movie-history"
 import { useDebounce } from "@/hooks/use-debounce"
+import type { SortByOption } from "@/lib/types/movie.types"
 import {
   GalleryView,
   GalleryViewSkeleton,
@@ -15,13 +16,40 @@ import {
 } from "@/components/movie-history/table-view"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { ErrorMessage } from "@/components/error-boundary"
 
 type ViewMode = "gallery" | "table"
 
+const sortOptions: { value: SortByOption; label: string }[] = [
+  { value: "watched_date.desc", label: "Data assistido (mais recente)" },
+  { value: "watched_date.asc", label: "Data assistido (mais antigo)" },
+  { value: "release_date.desc", label: "Lançamento (mais recente)" },
+  { value: "release_date.asc", label: "Lançamento (mais antigo)" },
+  { value: "rating_user.desc", label: "Minha avaliação (maior)" },
+  { value: "rating_user.asc", label: "Minha avaliação (menor)" },
+  { value: "average_rating.desc", label: "Média geral (maior)" },
+  { value: "average_rating.asc", label: "Média geral (menor)" },
+  { value: "rating_imdb.desc", label: "IMDb (maior)" },
+  { value: "rating_imdb.asc", label: "IMDb (menor)" },
+  { value: "rating_tmdb.desc", label: "TMDB (maior)" },
+  { value: "rating_tmdb.asc", label: "TMDB (menor)" },
+  { value: "rating_rotten.desc", label: "Rotten Tomatoes (maior)" },
+  { value: "rating_rotten.asc", label: "Rotten Tomatoes (menor)" },
+  { value: "rating_metacritic.desc", label: "Metacritic (maior)" },
+  { value: "rating_metacritic.asc", label: "Metacritic (menor)" },
+]
+
 export default function HistoryPage() {
   const [viewMode, setViewMode] = useState<ViewMode>("gallery")
   const [searchQuery, setSearchQuery] = useState("")
+  const [sortBy, setSortBy] = useState<SortByOption>("watched_date.desc")
   const debouncedSearch = useDebounce(searchQuery, 500)
   const { ref, inView } = useInView()
 
@@ -33,7 +61,7 @@ export default function HistoryPage() {
     isLoading,
     error,
   } = useMovieHistory({
-    sort_by: "watched_date.desc",
+    sort_by: sortBy,
     query: debouncedSearch || undefined,
   })
 
@@ -178,24 +206,44 @@ export default function HistoryPage() {
         </div>
       </div>
 
-      {/* Search Bar */}
-      <div className="relative">
-        <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
-        <Input
-          type="text"
-          placeholder="Buscar filmes..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="pr-10 pl-10"
-        />
-        {searchQuery && (
-          <button
-            onClick={() => setSearchQuery("")}
-            className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-          >
-            <X className="size-4" />
-          </button>
-        )}
+      {/* Search and Sort Bar */}
+      <div className="flex flex-col gap-4 sm:flex-row">
+        {/* Search */}
+        <div className="relative flex-1">
+          <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Buscar filmes..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pr-10 pl-10"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+            >
+              <X className="size-4" />
+            </button>
+          )}
+        </div>
+
+        {/* Sort */}
+        <Select
+          value={sortBy}
+          onValueChange={(value) => setSortBy(value as SortByOption)}
+        >
+          <SelectTrigger className="w-full sm:w-[280px]">
+            <SelectValue placeholder="Ordenar por" />
+          </SelectTrigger>
+          <SelectContent>
+            {sortOptions.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Search indicator */}
