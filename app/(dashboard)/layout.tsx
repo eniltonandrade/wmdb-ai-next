@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { SidebarNav } from "@/components/dashboard/sidebar-nav"
 
 export const metadata: Metadata = {
   title: {
@@ -15,12 +16,9 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="min-h-screen">
-      {/* Navigation/Sidebar will be added here later */}
       <div className="flex">
         <aside className="min-h-screen w-64 border-r p-4">
-          <div className="rounded-lg border border-dashed p-4 text-center text-sm text-muted-foreground">
-            Sidebar navigation will be added here
-          </div>
+          <SidebarNav />
         </aside>
 
         <main className="flex-1 p-8">{children}</main>
