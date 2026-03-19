@@ -8,6 +8,14 @@ export const env = {
   authCookieName: process.env.NEXT_PUBLIC_AUTH_COOKIE_NAME || "wmdb_auth_token",
   refreshCookieName:
     process.env.NEXT_PUBLIC_REFRESH_COOKIE_NAME || "wmdb_refresh_token",
+  tmdb: {
+    apiKey: process.env.NEXT_PUBLIC_TMDB_API_KEY || "",
+    apiUrl:
+      process.env.NEXT_PUBLIC_TMDB_API_URL || "https://api.themoviedb.org/3",
+    imageBaseUrl:
+      process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL ||
+      "https://image.tmdb.org/t/p",
+  },
 } as const
 
 export const apiEndpoints = {
