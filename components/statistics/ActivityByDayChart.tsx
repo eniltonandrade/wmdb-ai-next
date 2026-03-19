@@ -87,6 +87,7 @@ export function ActivityByDayChart({
               color: "#f9fafb",
             }}
             labelStyle={{ color: "#f9fafb", fontWeight: "bold" }}
+            itemStyle={{ color: "#f9fafb" }}
             cursor={{ fill: "rgba(132, 204, 22, 0.1)" }}
           />
           <Bar dataKey="count" radius={[8, 8, 0, 0]}>

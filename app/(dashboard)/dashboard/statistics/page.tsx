@@ -84,12 +84,18 @@ export default function StatisticsPage() {
           )}
         </div>
 
-        {/* Second Row: People Ranking */}
+        {/* Second Row: People Ranking and Activity by Day */}
         <div className="grid gap-4 md:grid-cols-2">
           <PeopleRankingChart />
+
+          {/* Activity by Day of Week */}
+          <ActivityByDayChart
+            activityByDayOfWeek={insights?.activityByDayOfWeek ?? []}
+            isLoading={insightsLoading}
+          />
         </div>
 
-        {/* Middle Row: Year Progression Charts and Activity */}
+        {/* Third Row: Year Progression Charts */}
         <div className="grid gap-4 md:grid-cols-2">
           {/* Watched Years */}
           <YearProgressionChart
@@ -103,12 +109,6 @@ export default function StatisticsPage() {
             title="Filmes por Ano de Lançamento"
             data={releaseYearsData?.results ?? []}
             isLoading={releaseYearsLoading}
-          />
-
-          {/* Activity by Day of Week */}
-          <ActivityByDayChart
-            activityByDayOfWeek={insights?.activityByDayOfWeek ?? []}
-            isLoading={insightsLoading}
           />
         </div>
       </div>
