@@ -94,4 +94,30 @@ export interface UserInsights {
   activityByDayOfWeek: ActivityByDayOfWeek[]
 }
 
+export interface GenreStats {
+  id: string
+  tmdbId: number
+  name: string
+  appearances: number
+  avgRating: number
+}
+
+export interface GenreStatsResponse {
+  total: number
+  results: GenreStats[]
+}
+
+export type GenreStatsSortBy =
+  | "average.desc"
+  | "average.asc"
+  | "count.asc"
+  | "count.desc"
+  | "name.asc"
+
+export interface GenreStatsParams {
+  sort_by?: GenreStatsSortBy
+  selected_rating?: RatingSource
+  page?: number
+}
+
 // Made with Bob

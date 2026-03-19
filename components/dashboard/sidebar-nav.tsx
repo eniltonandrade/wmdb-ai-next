@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, History, LogOut } from "lucide-react"
+import { Home, History, BarChart3, LogOut } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { useLogout } from "@/hooks/use-auth"
@@ -17,6 +17,11 @@ const navItems = [
     title: "Histórico",
     href: "/dashboard/history",
     icon: History,
+  },
+  {
+    title: "Estatísticas",
+    href: "/dashboard/statistics",
+    icon: BarChart3,
   },
 ]
 

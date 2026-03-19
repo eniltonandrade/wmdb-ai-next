@@ -10,6 +10,8 @@ import type {
   MovieHistoryParams,
   GenreResponse,
   UserInsights,
+  GenreStatsResponse,
+  GenreStatsParams,
 } from "@/lib/types/movie.types"
 
 export const movieService = {
@@ -42,6 +44,19 @@ export const movieService = {
   getUserInsights: async (): Promise<UserInsights> => {
     const response = await apiClient.get<UserInsights>(
       apiEndpoints.user.insights
+    )
+    return response.data
+  },
+
+  /**
+   * Get user genre statistics and distribution
+   */
+  getGenreInsights: async (
+    params: GenreStatsParams = {}
+  ): Promise<GenreStatsResponse> => {
+    const response = await apiClient.get<GenreStatsResponse>(
+      apiEndpoints.user.genreInsights,
+      { params }
     )
     return response.data
   },
