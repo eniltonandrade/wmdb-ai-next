@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import Image from "next/image"
 import { useUser, useLogout } from "@/hooks/use-auth"
 import { LoadingPage } from "@/components/ui/loading"
 import { ErrorMessage } from "@/components/error-boundary"
@@ -8,18 +8,8 @@ import { Button } from "@/components/ui/button"
 import { LogOut, User as UserIcon } from "lucide-react"
 
 export default function DashboardPage() {
-  const [mounted, setMounted] = useState(false)
   const { data: user, isLoading, error } = useUser()
   const logoutMutation = useLogout()
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Prevent hydration mismatch by not rendering until mounted
-  if (!mounted) {
-    return <LoadingPage message="Carregando..." />
-  }
 
   if (isLoading) {
     return <LoadingPage message="Carregando informações do usuário..." />
@@ -58,9 +48,11 @@ export default function DashboardPage() {
         <div className="flex items-start gap-4">
           <div className="flex size-16 items-center justify-center rounded-full bg-primary/10">
             {user?.avatarUrl ? (
-              <img
+              <Image
                 src={user.avatarUrl}
-                alt={user.name}
+                alt={user.name || "User avatar"}
+                width={64}
+                height={64}
                 className="size-16 rounded-full object-cover"
               />
             ) : (
