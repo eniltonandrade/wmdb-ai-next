@@ -19,6 +19,9 @@ export const apiEndpoints = {
   user: {
     profile: "/me/profile",
   },
+  movies: {
+    history: "/me/history/movies",
+  },
 } as const
 
 // Made with Bob
