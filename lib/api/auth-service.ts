@@ -36,7 +36,7 @@ export const authService = {
    */
   register: async (credentials: RegisterCredentials): Promise<User> => {
     const response = await apiClient.post<User>(
-      "/sessions/register",
+      apiEndpoints.auth.register,
       credentials
     )
     return response.data
@@ -95,7 +95,7 @@ export const authService = {
         return null
       }
       // Fetch user data
-      const response = await apiClient.get<User>(`/me/profile`)
+      const response = await apiClient.get<User>(apiEndpoints.user.profile)
       return response.data
     } catch (error) {
       console.error("Failed to get current user:", error)
