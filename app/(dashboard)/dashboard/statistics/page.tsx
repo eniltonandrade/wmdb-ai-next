@@ -4,6 +4,7 @@ import { useGenreInsights } from "@/hooks/useGenreInsights"
 import { LoadingPage } from "@/components/ui/loading"
 import { ErrorMessage } from "@/components/error-boundary"
 import { GenreDistributionChart } from "@/components/statistics/GenreDistributionChart"
+import { PeopleRankingChart } from "@/components/statistics/PeopleRankingChart"
 
 export default function StatisticsPage() {
   const { data, isLoading, error } = useGenreInsights({
@@ -48,21 +49,8 @@ export default function StatisticsPage() {
           </div>
         )}
 
-        {/* Placeholder for future statistics */}
-        <div className="space-y-4">
-          <div className="rounded-lg border bg-card p-6">
-            <h3 className="mb-2 text-lg font-semibold">Mais Estatísticas</h3>
-            <p className="text-sm text-muted-foreground">
-              Em breve: análise por ano, diretores favoritos, e muito mais...
-            </p>
-          </div>
-          <div className="rounded-lg border bg-card p-6">
-            <h3 className="mb-2 text-lg font-semibold">Tendências</h3>
-            <p className="text-sm text-muted-foreground">
-              Em breve: gráficos de tendências ao longo do tempo...
-            </p>
-          </div>
-        </div>
+        {/* People Ranking */}
+        <PeopleRankingChart />
       </div>
     </div>
   )

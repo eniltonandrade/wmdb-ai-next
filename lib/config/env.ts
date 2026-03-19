@@ -20,6 +20,8 @@ export const apiEndpoints = {
     profile: "/me/profile",
     insights: "/me/insights",
     genreInsights: "/me/insights/genres",
+    peopleInsights: "/me/insights/people",
+    peopleRankings: "/me/insights/people/rankings",
   },
   movies: {
     history: "/me/history/movies",

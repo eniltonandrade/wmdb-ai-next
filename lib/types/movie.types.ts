@@ -120,4 +120,54 @@ export interface GenreStatsParams {
   page?: number
 }
 
+export interface PeopleStats {
+  id: string
+  tmdbId: number
+  name: string
+  profilePath: string | null
+  appearances: number
+  avgRating: number
+}
+
+export interface PeopleStatsResponse {
+  total: number
+  results: PeopleStats[]
+}
+
+export interface PeopleRanking {
+  id: string
+  tmdbId: number
+  name: string
+  profilePath: string | null
+  score: number
+  appearances: number
+  avgRating: number
+}
+
+export interface PeopleRankingResponse {
+  total: number
+  results: PeopleRanking[]
+}
+
+export type PeopleRole = "cast" | "director" | "writer" | "producer"
+
+export type PeopleStatsSortBy =
+  | "count.desc"
+  | "count.asc"
+  | "average.desc"
+  | "average.asc"
+
+export interface PeopleStatsParams {
+  gender?: number
+  role?: PeopleRole
+  sort_by?: PeopleStatsSortBy
+  page?: number
+}
+
+export interface PeopleRankingParams {
+  gender?: number
+  role?: PeopleRole
+  page?: number
+}
+
 // Made with Bob
