@@ -16,6 +16,7 @@ import type {
   PeopleStatsParams,
   PeopleRankingResponse,
   PeopleRankingParams,
+  YearStatsResponse,
 } from "@/lib/types/movie.types"
 
 export const movieService = {
@@ -87,6 +88,26 @@ export const movieService = {
     const response = await apiClient.get<PeopleRankingResponse>(
       apiEndpoints.user.peopleRankings,
       { params }
+    )
+    return response.data
+  },
+
+  /**
+   * Get movies watched by year statistics
+   */
+  getWatchedYears: async (): Promise<YearStatsResponse> => {
+    const response = await apiClient.get<YearStatsResponse>(
+      apiEndpoints.user.watchedYears
+    )
+    return response.data
+  },
+
+  /**
+   * Get movies by release year statistics
+   */
+  getReleaseYears: async (): Promise<YearStatsResponse> => {
+    const response = await apiClient.get<YearStatsResponse>(
+      apiEndpoints.user.releaseYears
     )
     return response.data
   },

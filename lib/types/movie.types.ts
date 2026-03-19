@@ -170,4 +170,15 @@ export interface PeopleRankingParams {
   page?: number
 }
 
+export interface YearStats {
+  year: number
+  count: number
+  avgRating: number
+}
+
+export interface YearStatsResponse {
+  total: number
+  results: YearStats[]
+}
+
 // Made with Bob
