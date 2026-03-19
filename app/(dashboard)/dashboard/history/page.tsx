@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { useMovieHistoryFlat } from "@/hooks/use-movie-history"
 import { useDebounce } from "@/hooks/use-debounce"
 import { useHistoryState } from "@/hooks/use-history-state"
@@ -11,12 +12,17 @@ import { ViewModeToggle } from "@/components/movie-history/view-mode-toggle"
 import { SearchControlsBar } from "@/components/movie-history/search-controls-bar"
 import { InfiniteScrollSentinel } from "@/components/movie-history/infinite-scroll-sentinel"
 import { HistoryStatusRenderer } from "@/components/movie-history/history-status-renderer"
+import { FilterSidebar } from "@/components/movie-history/FilterSidebar"
+import { FilterButton } from "@/components/movie-history/FilterButton"
 
 export default function HistoryPage() {
+  // Filter sidebar state
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
+
   // Consolidated state management
-  const { state, setViewMode, setSearch, setSort, clearSearch } =
+  const { state, setViewMode, setSearch, setSort, setGenre, clearSearch } =
     useHistoryState()
-  const { viewMode, searchQuery, sortBy } = state
+  const { viewMode, searchQuery, sortBy, genre } = state
 
   const debouncedSearch = useDebounce(searchQuery, 500)
 
@@ -31,6 +37,7 @@ export default function HistoryPage() {
   } = useMovieHistoryFlat({
     sort_by: sortBy,
     query: debouncedSearch || undefined,
+    genre_id: genre || undefined,
   })
 
   // Infinite scroll trigger
@@ -74,15 +81,21 @@ export default function HistoryPage() {
           <ViewModeToggle viewMode={viewMode} onViewModeChange={setViewMode} />
         </div>
 
-        {/* Search and Sort Controls */}
-        <SearchControlsBar
-          searchQuery={searchQuery}
-          debouncedSearch={debouncedSearch}
-          sortBy={sortBy}
-          onSearchChange={setSearch}
-          onSortChange={setSort}
-          onClearSearch={clearSearch}
-        />
+        {/* Search, Sort, and Filter Controls */}
+        <div className="flex flex-col gap-4 sm:flex-row">
+          <SearchControlsBar
+            searchQuery={searchQuery}
+            debouncedSearch={debouncedSearch}
+            sortBy={sortBy}
+            onSearchChange={setSearch}
+            onSortChange={setSort}
+            onClearSearch={clearSearch}
+          />
+          <FilterButton
+            onClick={() => setIsFilterOpen(true)}
+            hasActiveFilters={!!genre}
+          />
+        </div>
 
         {/* Content */}
         {renderView()}
@@ -93,6 +106,14 @@ export default function HistoryPage() {
           isFetchingNextPage={isFetchingNextPage}
           moviesCount={movies.length}
           sentinelRef={sentinelRef}
+        />
+
+        {/* Filter Sidebar */}
+        <FilterSidebar
+          isOpen={isFilterOpen}
+          onClose={() => setIsFilterOpen(false)}
+          selectedGenre={genre}
+          onGenreChange={setGenre}
         />
       </div>
     </HistoryStatusRenderer>

@@ -8,6 +8,7 @@ import { apiEndpoints } from "@/lib/config/env"
 import type {
   MovieHistoryResponse,
   MovieHistoryParams,
+  GenreResponse,
 } from "@/lib/types/movie.types"
 
 export const movieService = {
@@ -20,6 +21,16 @@ export const movieService = {
     const response = await apiClient.get<MovieHistoryResponse>(
       apiEndpoints.movies.history,
       { params }
+    )
+    return response.data
+  },
+
+  /**
+   * Get all available genres
+   */
+  getGenres: async (): Promise<GenreResponse> => {
+    const response = await apiClient.get<GenreResponse>(
+      apiEndpoints.movies.genres
     )
     return response.data
   },

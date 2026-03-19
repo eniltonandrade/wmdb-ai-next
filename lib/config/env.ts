@@ -21,6 +21,7 @@ export const apiEndpoints = {
   },
   movies: {
     history: "/me/history/movies",
+    genres: "/genres",
   },
 } as const
 

@@ -5,6 +5,17 @@
 
 export type RatingSource = "TMDB" | "IMDB" | "ROTTEN_TOMATOES" | "METACRITIC"
 
+export interface Genre {
+  id: string
+  name: string
+  tmdbId: number
+}
+
+export interface GenreResponse {
+  total: number
+  results: Genre[]
+}
+
 export type SortByOption =
   | "release_date.asc"
   | "release_date.desc"
