@@ -16,6 +16,10 @@ export const env = {
       process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL ||
       "https://image.tmdb.org/t/p",
   },
+  omdb: {
+    apiKey: process.env.NEXT_PUBLIC_OMDB_API_KEY || "",
+    apiUrl: process.env.NEXT_PUBLIC_OMDB_API_URL || "https://www.omdbapi.com/",
+  },
 } as const
 
 export const apiEndpoints = {

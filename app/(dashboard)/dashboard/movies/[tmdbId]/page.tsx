@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Image from "next/image"
 import { useMovieDetails, useMovieCredits } from "@/hooks/useTMDB"
+import { useOMDbMovieByImdbId } from "@/hooks/useOMDB"
 import { useMovieHistoryDetail } from "@/hooks/useMovieHistoryDetail"
 import { tmdbService } from "@/lib/api/tmdb-service"
 import { Button } from "@/components/ui/button"
@@ -14,6 +15,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { AddToListDialog } from "@/components/movie-history/AddToListDialog"
+import { RatingsBar } from "@/components/movie-details/RatingsBar"
 import { ArrowLeft, Star, Users, Plus } from "lucide-react"
 import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
@@ -35,6 +37,15 @@ export default function MovieDetailsPage() {
 
   const { data: historyDetail, isLoading: isLoadingHistory } =
     useMovieHistoryDetail(tmdbId)
+
+  // Fetch OMDb data using IMDb ID from TMDB
+  const { data: omdbData } = useOMDbMovieByImdbId(
+    movie?.imdb_id || "",
+    "full",
+    {
+      enabled: !!movie?.imdb_id,
+    }
+  )
 
   const isLoading = isLoadingMovie || isLoadingHistory
 
@@ -198,16 +209,6 @@ export default function MovieDetailsPage() {
                     <span className="ml-2 text-white">{movie.runtime} Min</span>
                   </div>
                 )}
-                {movie.vote_average > 0 && (
-                  <div className="text-sm">
-                    <span className="tracking-wider text-muted-foreground uppercase">
-                      TMDB
-                    </span>
-                    <span className="ml-2 text-white">
-                      {movie.vote_average.toFixed(1)}/10
-                    </span>
-                  </div>
-                )}
               </div>
             </div>
 
@@ -275,7 +276,7 @@ export default function MovieDetailsPage() {
 
                 {/* Tags */}
                 {historyDetail.tags.length > 0 && (
-                  <div>
+                  <div className="mb-6">
                     <div className="mb-3 text-xs tracking-wider text-muted-foreground uppercase">
                       Tags
                     </div>
@@ -292,6 +293,17 @@ export default function MovieDetailsPage() {
                     </div>
                   </div>
                 )}
+
+                {/* Ratings Bar */}
+                <div className="border-t border-[#1c1b1b] pt-6">
+                  <RatingsBar
+                    tmdbRating={movie.vote_average}
+                    tmdbVoteCount={movie.vote_count}
+                    omdbRatings={omdbData?.Ratings}
+                    imdbRating={omdbData?.imdbRating}
+                    metascore={omdbData?.Metascore}
+                  />
+                </div>
               </div>
             ) : (
               <div className="w-full self-start rounded-lg bg-[#131313] p-4 sm:p-6 lg:w-80">
@@ -303,11 +315,22 @@ export default function MovieDetailsPage() {
                 </p>
                 <Button
                   onClick={() => setShowAddToListDialog(true)}
-                  className="w-full gap-2"
+                  className="mb-6 w-full gap-2"
                 >
                   <Plus className="h-4 w-4" />
                   Adicionar à Lista
                 </Button>
+
+                {/* Ratings Bar */}
+                <div className="border-t border-[#1c1b1b] pt-6">
+                  <RatingsBar
+                    tmdbRating={movie.vote_average}
+                    tmdbVoteCount={movie.vote_count}
+                    omdbRatings={omdbData?.Ratings}
+                    imdbRating={omdbData?.imdbRating}
+                    metascore={omdbData?.Metascore}
+                  />
+                </div>
               </div>
             )}
           </div>
@@ -396,23 +419,13 @@ export default function MovieDetailsPage() {
             <h3 className="mb-6 text-sm font-medium tracking-widest text-primary uppercase">
               Especificações
             </h3>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6">
               {movie.runtime && (
                 <div>
                   <div className="mb-2 text-xs tracking-wider text-muted-foreground uppercase">
                     Duração
                   </div>
                   <div className="text-white">{movie.runtime} Min</div>
-                </div>
-              )}
-              {movie.vote_average > 0 && (
-                <div>
-                  <div className="mb-2 text-xs tracking-wider text-muted-foreground uppercase">
-                    Avaliação
-                  </div>
-                  <div className="text-white">
-                    {movie.vote_average.toFixed(1)}/10
-                  </div>
                 </div>
               )}
               {movie.original_language && (
@@ -435,6 +448,34 @@ export default function MovieDetailsPage() {
                   </div>
                 </div>
               )}
+              {movie.budget > 0 && (
+                <div>
+                  <div className="mb-2 text-xs tracking-wider text-muted-foreground uppercase">
+                    Orçamento
+                  </div>
+                  <div className="text-white">
+                    ${(movie.budget / 1000000).toFixed(1)}M
+                  </div>
+                </div>
+              )}
+              {movie.revenue > 0 && (
+                <div>
+                  <div className="mb-2 text-xs tracking-wider text-muted-foreground uppercase">
+                    Receita
+                  </div>
+                  <div className="text-white">
+                    ${(movie.revenue / 1000000).toFixed(1)}M
+                  </div>
+                </div>
+              )}
+              {omdbData?.BoxOffice && omdbData.BoxOffice !== "N/A" && (
+                <div>
+                  <div className="mb-2 text-xs tracking-wider text-muted-foreground uppercase">
+                    Bilheteria
+                  </div>
+                  <div className="text-white">{omdbData.BoxOffice}</div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -450,14 +491,12 @@ export default function MovieDetailsPage() {
                 </span>
               </div>
             )}
-            {movie.vote_average > 0 && (
+            {omdbData?.Awards && omdbData.Awards !== "N/A" && (
               <div>
                 <span className="tracking-wider text-muted-foreground uppercase">
-                  Nota
+                  Prêmios
                 </span>
-                <span className="ml-3 text-white">
-                  {movie.vote_average.toFixed(1)}/10
-                </span>
+                <span className="ml-3 text-white">{omdbData.Awards}</span>
               </div>
             )}
           </div>
