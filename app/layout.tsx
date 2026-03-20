@@ -7,7 +7,11 @@ import { AuthProvider } from "@/lib/auth/auth-context"
 import { cn } from "@/lib/utils"
 import { Metadata } from "next"
 
-const roboto = Roboto({ subsets: ["latin"], variable: "--font-sans" })
+const roboto = Roboto({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  weight: ["400", "500", "700"],
+})
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],

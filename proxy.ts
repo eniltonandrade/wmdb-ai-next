@@ -1,22 +1,22 @@
 /**
- * Next.js Middleware
+ * Next.js Proxy
  * Handles route protection and authentication checks
  */
 
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
 
 // Routes that don't require authentication
-const publicRoutes = ['/login', '/register']
+const publicRoutes = ["/login", "/register"]
 
 // Routes that should redirect to dashboard if already authenticated
-const authRoutes = ['/login', '/register']
+const authRoutes = ["/login", "/register"]
 
-export function middleware(request: NextRequest) {
+export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // Get auth token from cookies
-  const authToken = request.cookies.get('wmdb_auth_token')?.value
+  const authToken = request.cookies.get("wmdb_auth_token")?.value
   const isAuthenticated = !!authToken
 
   // Check if the route is public
@@ -25,14 +25,14 @@ export function middleware(request: NextRequest) {
 
   // If user is authenticated and trying to access auth pages, redirect to dashboard
   if (isAuthenticated && isAuthRoute) {
-    return NextResponse.redirect(new URL('/dashboard', request.url))
+    return NextResponse.redirect(new URL("/dashboard", request.url))
   }
 
   // If user is not authenticated and trying to access protected routes, redirect to login
   if (!isAuthenticated && !isPublicRoute) {
-    const loginUrl = new URL('/login', request.url)
+    const loginUrl = new URL("/login", request.url)
     // Add callback URL to redirect back after login
-    loginUrl.searchParams.set('callbackUrl', pathname)
+    loginUrl.searchParams.set("callbackUrl", pathname)
     return NextResponse.redirect(loginUrl)
   }
 
@@ -49,7 +49,7 @@ export const config = {
      * - favicon.ico (favicon file)
      * - public files (public folder)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|public).*)',
+    "/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|public).*)",
   ],
 }
 
