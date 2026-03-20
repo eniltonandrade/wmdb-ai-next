@@ -19,6 +19,9 @@ import type {
   YearStatsResponse,
   CompanyStatsResponse,
   CompanyStatsParams,
+  MovieHistoryDetail,
+  AddMovieToHistoryPayload,
+  AddMovieToHistoryResponse,
 } from "@/lib/types/movie.types"
 
 export const movieService = {
@@ -123,6 +126,31 @@ export const movieService = {
     const response = await apiClient.get<CompanyStatsResponse>(
       apiEndpoints.user.companyInsights,
       { params }
+    )
+    return response.data
+  },
+
+  /**
+   * Get user's history detail for a specific movie by TMDB ID
+   */
+  getMovieHistoryDetail: async (
+    tmdbId: number
+  ): Promise<MovieHistoryDetail> => {
+    const response = await apiClient.get<MovieHistoryDetail>(
+      apiEndpoints.movies.historyDetail(tmdbId)
+    )
+    return response.data
+  },
+
+  /**
+   * Add a movie to user's history
+   */
+  addMovieToHistory: async (
+    payload: AddMovieToHistoryPayload
+  ): Promise<AddMovieToHistoryResponse> => {
+    const response = await apiClient.post<AddMovieToHistoryResponse>(
+      apiEndpoints.movies.addToHistory,
+      payload
     )
     return response.data
   },

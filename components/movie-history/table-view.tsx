@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { Calendar, Clock, Star } from "lucide-react"
 import type { MovieHistoryItem } from "@/lib/types/movie.types"
 import { cn } from "@/lib/utils"
@@ -65,20 +66,27 @@ function MovieRow({ item }: MovieRowProps) {
     <tr className="border-b transition-colors hover:bg-muted/50">
       {/* Poster */}
       <td className="p-4">
-        <div className="relative h-16 w-11 overflow-hidden rounded">
-          <Image
-            src={posterUrl}
-            alt={movie.title}
-            fill
-            className="object-cover"
-            sizes="44px"
-          />
-        </div>
+        <Link href={`/dashboard/movies/${movie.tmdbId}`}>
+          <div className="relative h-16 w-11 cursor-pointer overflow-hidden rounded">
+            <Image
+              src={posterUrl}
+              alt={movie.title}
+              fill
+              className="object-cover"
+              sizes="44px"
+            />
+          </div>
+        </Link>
       </td>
 
       {/* Title */}
       <td className="p-4">
-        <div className="font-medium">{movie.title}</div>
+        <Link
+          href={`/dashboard/movies/${movie.tmdbId}`}
+          className="hover:underline"
+        >
+          <div className="font-medium">{movie.title}</div>
+        </Link>
       </td>
 
       {/* Original Title */}

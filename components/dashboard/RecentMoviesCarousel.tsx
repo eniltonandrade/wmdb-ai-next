@@ -29,7 +29,7 @@ export function RecentMoviesCarousel() {
           {[...Array(5)].map((_, i) => (
             <div
               key={i}
-              className="h-64 w-44 flex-shrink-0 animate-pulse rounded-lg bg-muted"
+              className="h-64 w-44 shrink-0 animate-pulse rounded-lg bg-muted"
             />
           ))}
         </div>
@@ -72,9 +72,12 @@ export function RecentMoviesCarousel() {
               key={item.id}
               className="basis-1/2 pl-2 sm:basis-1/3 md:basis-1/4 md:pl-4 lg:basis-1/5"
             >
-              <div className="space-y-2">
+              <Link
+                href={`/dashboard/movies/${item.movie.tmdbId}`}
+                className="block space-y-2"
+              >
                 {/* Movie Poster */}
-                <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg bg-muted transition-transform hover:scale-105">
+                <div className="relative aspect-2/3 w-full overflow-hidden rounded-lg bg-muted transition-transform hover:scale-105">
                   {item.movie.posterPath ? (
                     <Image
                       src={`https://image.tmdb.org/t/p/w342${item.movie.posterPath}`}
@@ -113,7 +116,7 @@ export function RecentMoviesCarousel() {
                     )}
                   </div>
                 </div>
-              </div>
+              </Link>
             </CarouselItem>
           ))}
         </CarouselContent>

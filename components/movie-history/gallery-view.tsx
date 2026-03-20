@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { Calendar, Star } from "lucide-react"
 import type { MovieHistoryItem } from "@/lib/types/movie.types"
 import { cn } from "@/lib/utils"
@@ -42,7 +43,10 @@ function MovieCard({ item }: MovieCardProps) {
   })
 
   return (
-    <div className="group relative overflow-hidden rounded-lg border bg-card transition-all hover:shadow-lg">
+    <Link
+      href={`/dashboard/movies/${movie.tmdbId}`}
+      className="group relative block overflow-hidden rounded-lg border bg-card transition-all hover:shadow-lg"
+    >
       {/* Poster */}
       <div className="relative aspect-2/3 overflow-hidden bg-muted">
         <Image
@@ -78,7 +82,7 @@ function MovieCard({ item }: MovieCardProps) {
           </div>
         )}
       </div>
-    </div>
+    </Link>
   )
 }
 

@@ -207,4 +207,28 @@ export interface CompanyStatsParams {
   page?: number
 }
 
+export interface Tag {
+  id: string
+  name: string
+  colorHex: string
+}
+
+export interface MovieHistoryDetail {
+  id: string
+  movieId: string
+  date: string
+  review: string | null
+  rating: number | null
+  tags: Tag[]
+}
+export interface AddMovieToHistoryPayload {
+  movieId: string
+  watchedDate: Date
+  rating?: number | null
+}
+
+export interface AddMovieToHistoryResponse {
+  id: string
+}
+
 // Made with Bob

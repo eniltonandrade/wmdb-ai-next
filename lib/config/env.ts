@@ -36,6 +36,8 @@ export const apiEndpoints = {
   },
   movies: {
     history: "/me/history/movies",
+    addToHistory: "/me/history/movies",
+    historyDetail: (tmdbId: number) => `/me/history/movies/${tmdbId}`,
     genres: "/genres",
   },
 } as const

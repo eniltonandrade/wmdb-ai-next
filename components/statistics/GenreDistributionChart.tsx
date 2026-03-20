@@ -4,7 +4,13 @@ import { useState } from "react"
 import type { GenreStats } from "@/lib/types/movie.types"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { X, Hash, Star } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { Hash, Star } from "lucide-react"
 
 interface GenreDistributionChartProps {
   genres: GenreStats[]
@@ -163,17 +169,13 @@ function GenreModal({
       : Math.max(...sortedGenres.map((g) => g.avgRating), 1)
 
   return (
-    <>
-      {/* Backdrop */}
-      <div className="fixed inset-0 z-50 bg-black/50" onClick={onClose} />
-
-      {/* Modal */}
-      <div className="fixed top-1/2 left-1/2 z-50 w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 rounded-lg border bg-background p-6 shadow-xl">
-        {/* Header */}
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-2xl font-semibold">Todos os Gêneros</h2>
-
-          <div className="flex items-center gap-2">
+    <Dialog open={true} onOpenChange={onClose}>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader>
+          <div className="flex items-center justify-between">
+            <DialogTitle className="text-2xl font-semibold">
+              Todos os Gêneros
+            </DialogTitle>
             {/* Sort Toggle */}
             <div className="flex gap-1">
               <button
@@ -201,15 +203,8 @@ function GenreModal({
                 <Star className="size-4" />
               </button>
             </div>
-
-            <button
-              onClick={onClose}
-              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            >
-              <X className="size-5" />
-            </button>
           </div>
-        </div>
+        </DialogHeader>
 
         {/* Content */}
         <div className="max-h-[60vh] space-y-3 overflow-y-auto pr-2">
@@ -239,8 +234,8 @@ function GenreModal({
             )
           })}
         </div>
-      </div>
-    </>
+      </DialogContent>
+    </Dialog>
   )
 }
 

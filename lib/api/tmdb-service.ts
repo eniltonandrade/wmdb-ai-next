@@ -45,7 +45,9 @@ class TMDBService {
     }
 
     const url = new URL(`${this.baseUrl}${endpoint}`)
-    url.searchParams.append("api_key", this.apiKey)
+
+    // Always include pt-BR language parameter
+    url.searchParams.append("language", "pt-BR")
 
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
@@ -56,6 +58,7 @@ class TMDBService {
     const response = await fetch(url.toString(), {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${this.apiKey}`,
       },
     })
 
