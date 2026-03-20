@@ -292,4 +292,72 @@ export interface PersonInsightsResponse {
   frequentCollaborators: PersonInsightCollaborator[]
 }
 
+// Retrospective Types
+export interface RetrospectiveMovieData {
+  totalWatched: number
+  totalRuntime: number
+  averageRating: number
+}
+
+export interface RetrospectiveActivityByDayOfWeek {
+  weekday: number // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+  count: number
+}
+
+export interface RetrospectiveActivityByMonth {
+  month: number // 1-12
+  count: number
+}
+
+export interface RetrospectiveMovie {
+  id: string
+  title: string
+  originalTitle: string
+  posterPath: string | null
+  backdropPath: string | null
+  releaseDate: string
+  runtime: number
+  imdbId: string | null
+  tmdbId: number
+  createdAt: string
+  updatedAt: string
+  averageRating: number
+  watchedDate?: string
+}
+
+export interface RetrospectiveGenre {
+  id: string
+  name: string
+  count: number
+}
+
+export interface RetrospectivePerson {
+  name: string
+  id: string
+  tmdbId: number
+  count: number
+}
+
+export interface RetrospectiveCompany {
+  name: string
+  id: string
+  tmdbId: number
+  logoPath: string | null
+  count: number
+}
+
+export interface RetrospectiveResponse {
+  year: number
+  movieData: RetrospectiveMovieData
+  activityByDayOfWeek: RetrospectiveActivityByDayOfWeek[]
+  activityByMonth: RetrospectiveActivityByMonth[]
+  firstMovie: RetrospectiveMovie
+  lastMovie: RetrospectiveMovie
+  bestRated: RetrospectiveMovie
+  worstRated: RetrospectiveMovie
+  activityByGenre: RetrospectiveGenre[]
+  mostWatchedPerson: RetrospectivePerson
+  mostWatchedCompany: RetrospectiveCompany
+}
+
 // Made with Bob

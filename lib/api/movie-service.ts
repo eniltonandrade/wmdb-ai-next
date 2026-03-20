@@ -23,6 +23,7 @@ import type {
   AddMovieToHistoryPayload,
   AddMovieToHistoryResponse,
   PersonInsightsResponse,
+  RetrospectiveResponse,
 } from "@/lib/types/movie.types"
 
 export const movieService = {
@@ -164,6 +165,16 @@ export const movieService = {
   ): Promise<PersonInsightsResponse> => {
     const response = await apiClient.get<PersonInsightsResponse>(
       apiEndpoints.people.insights(tmdbId)
+    )
+    return response.data
+  },
+
+  /**
+   * Get user's retrospective data for a specific year
+   */
+  getRetrospective: async (year: number): Promise<RetrospectiveResponse> => {
+    const response = await apiClient.get<RetrospectiveResponse>(
+      apiEndpoints.user.retrospective(year)
     )
     return response.data
   },

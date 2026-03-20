@@ -37,6 +37,7 @@ export const apiEndpoints = {
     watchedYears: "/me/insights/watched-years",
     releaseYears: "/me/insights/release-years",
     companyInsights: "/me/insights/companies",
+    retrospective: (year: number) => `/me/insights/retrospective/${year}`,
   },
   movies: {
     history: "/me/history/movies",
