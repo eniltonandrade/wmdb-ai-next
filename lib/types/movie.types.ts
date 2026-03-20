@@ -231,4 +231,65 @@ export interface AddMovieToHistoryResponse {
   id: string
 }
 
+// Person Insights Types
+export interface PersonInsightMovie {
+  id: string
+  tmdbId: number
+  averageRating: number
+  runtime: number
+  title: string
+  posterPath: string | null
+  role: "ACTOR" | "ACTRESS" | "DIRECTOR" | "WRITER" | "PRODUCER"
+  character?: string
+}
+
+export interface PersonInsightCollaborator {
+  id: string
+  tmdbId: number
+  name: string
+  profilePath: string | null
+  role: "ACTOR" | "ACTRESS" | "DIRECTOR" | "WRITER" | "PRODUCER"
+  count: number
+}
+
+export interface PersonInsightGenre {
+  id: string
+  name: string
+  count: number
+}
+
+export interface PersonInsightCompany {
+  id: string
+  name: string
+  logoPath: string | null
+  count: number
+}
+
+export interface PersonInsightRoleCount {
+  role: "ACTOR" | "ACTRESS" | "DIRECTOR" | "WRITER" | "PRODUCER"
+  count: number
+}
+
+export interface PersonInsight {
+  id: string
+  name: string
+  profilePath: string | null
+  tmdbId: number
+}
+
+export interface PersonInsightsResponse {
+  person: PersonInsight
+  movieCount: number
+  averageRating: number
+  totalRuntime: number
+  highestRated: PersonInsightMovie
+  lowestRated: PersonInsightMovie
+  highestRatedMovies: PersonInsightMovie[]
+  lowestRatedMovies: PersonInsightMovie[]
+  moviesCountByRoles: PersonInsightRoleCount[]
+  favoriteGenre: PersonInsightGenre
+  favoriteCompany: PersonInsightCompany
+  frequentCollaborators: PersonInsightCollaborator[]
+}
+
 // Made with Bob

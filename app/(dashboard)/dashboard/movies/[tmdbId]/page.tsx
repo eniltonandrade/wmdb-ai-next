@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useParams, useRouter } from "next/navigation"
+import Image from "next/image"
 import { useMovieDetails, useMovieCredits } from "@/hooks/useTMDB"
 import { useMovieHistoryDetail } from "@/hooks/useMovieHistoryDetail"
 import { tmdbService } from "@/lib/api/tmdb-service"
@@ -109,10 +110,13 @@ export default function MovieDetailsPage() {
             {/* Poster */}
             <div className="flex-shrink-0">
               {posterUrl ? (
-                <img
+                <Image
                   src={posterUrl}
                   alt={movie.title}
+                  width={280}
+                  height={420}
                   className="w-[280px] rounded-lg shadow-2xl"
+                  priority
                 />
               ) : (
                 <div className="flex aspect-[2/3] w-[280px] items-center justify-center rounded-lg bg-[#1c1b1b]">
@@ -149,7 +153,7 @@ export default function MovieDetailsPage() {
                   {directors.map((director) => (
                     <div key={director.id} className="flex items-center gap-3">
                       {director.profile_path ? (
-                        <img
+                        <Image
                           src={
                             tmdbService.getProfileUrl(
                               director.profile_path,
@@ -157,6 +161,8 @@ export default function MovieDetailsPage() {
                             ) || ""
                           }
                           alt={director.name}
+                          width={48}
+                          height={48}
                           className="h-12 w-12 rounded-full border-2 border-primary/30 object-cover"
                         />
                       ) : (
@@ -325,9 +331,15 @@ export default function MovieDetailsPage() {
               </div>
               <div className="grid grid-cols-5 gap-4 md:grid-cols-8 lg:grid-cols-10">
                 {mainCast.map((person) => (
-                  <div key={person.id} className="flex flex-col">
+                  <div
+                    key={person.id}
+                    className="group flex cursor-pointer flex-col transition-transform hover:scale-105"
+                    onClick={() =>
+                      router.push(`/dashboard/people/${person.id}`)
+                    }
+                  >
                     {person.profile_path ? (
-                      <img
+                      <Image
                         src={
                           tmdbService.getProfileUrl(
                             person.profile_path,
@@ -335,6 +347,8 @@ export default function MovieDetailsPage() {
                           ) || ""
                         }
                         alt={person.name}
+                        width={185}
+                        height={278}
                         className="mb-2 aspect-[2/3] w-full rounded-lg object-cover"
                       />
                     ) : (
@@ -342,7 +356,7 @@ export default function MovieDetailsPage() {
                         <span className="text-3xl">👤</span>
                       </div>
                     )}
-                    <div className="line-clamp-2 text-sm font-medium text-white">
+                    <div className="line-clamp-2 text-sm font-medium text-white group-hover:text-primary">
                       {person.name}
                     </div>
                     <div className="line-clamp-1 text-xs tracking-wider text-muted-foreground uppercase">
@@ -459,10 +473,14 @@ export default function MovieDetailsPage() {
               {remainingCast.map((person) => (
                 <div
                   key={person.id}
-                  className="flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-[#1c1b1b]"
+                  className="flex cursor-pointer items-center gap-3 rounded-lg p-2 transition-colors hover:bg-[#1c1b1b]"
+                  onClick={() => {
+                    setShowCastModal(false)
+                    router.push(`/dashboard/people/${person.id}`)
+                  }}
                 >
                   {person.profile_path ? (
-                    <img
+                    <Image
                       src={
                         tmdbService.getProfileUrl(
                           person.profile_path,
@@ -470,6 +488,8 @@ export default function MovieDetailsPage() {
                         ) || ""
                       }
                       alt={person.name}
+                      width={48}
+                      height={48}
                       className="h-12 w-12 flex-shrink-0 rounded-full object-cover"
                     />
                   ) : (
@@ -478,7 +498,7 @@ export default function MovieDetailsPage() {
                     </div>
                   )}
                   <div className="min-w-0 flex-1">
-                    <div className="truncate text-sm font-medium text-white">
+                    <div className="truncate text-sm font-medium text-white hover:text-primary">
                       {person.name}
                     </div>
                     <div className="truncate text-xs text-muted-foreground">

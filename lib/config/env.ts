@@ -40,6 +40,9 @@ export const apiEndpoints = {
     historyDetail: (tmdbId: number) => `/me/history/movies/${tmdbId}`,
     genres: "/genres",
   },
+  people: {
+    insights: (tmdbId: number) => `/me/insights/people/${tmdbId}`,
+  },
 } as const
 
 // Made with Bob

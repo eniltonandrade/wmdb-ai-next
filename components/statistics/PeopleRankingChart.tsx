@@ -6,6 +6,7 @@
  */
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { usePeopleRankings } from "@/hooks/usePeopleRankings"
 import type { PeopleRole } from "@/lib/types/movie.types"
 import { Users, Star, Trophy } from "lucide-react"
@@ -26,6 +27,7 @@ const GENDER_OPTIONS = [
 ]
 
 export function PeopleRankingChart() {
+  const router = useRouter()
   const [role, setRole] = useState<PeopleRole | undefined>(undefined)
   const [gender, setGender] = useState<number | undefined>(undefined)
 
@@ -107,7 +109,13 @@ export function PeopleRankingChart() {
               : null
 
             return (
-              <div key={person.id} className="flex items-center gap-3 text-sm">
+              <div
+                key={person.id}
+                className="flex cursor-pointer items-center gap-3 rounded-lg p-2 text-sm transition-colors hover:bg-accent"
+                onClick={() =>
+                  router.push(`/dashboard/people/${person.tmdbId}`)
+                }
+              >
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium">
                   {index + 1}
                 </span>
@@ -127,7 +135,9 @@ export function PeopleRankingChart() {
                   </div>
                 )}
                 <div className="min-w-0 flex-1">
-                  <div className="truncate font-medium">{person.name}</div>
+                  <div className="truncate font-medium group-hover:text-primary">
+                    {person.name}
+                  </div>
                   <div className="flex items-center gap-3 text-xs text-muted-foreground">
                     <div className="flex items-center gap-1">
                       <Trophy className="h-3 w-3" />
