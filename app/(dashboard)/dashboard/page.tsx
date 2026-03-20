@@ -67,14 +67,14 @@ export default function DashboardPage() {
         <InsightsStats insights={insights} />
       ) : null}
 
-      {/* Trending Movies - Full Width */}
-      <TrendingMovies />
+      {/* Viewing Trends */}
+      <ViewingTrends />
 
       {/* Recent Movies Carousel */}
       <RecentMoviesCarousel />
 
-      {/* Viewing Trends */}
-      <ViewingTrends />
+      {/* Trending Movies - Full Width */}
+      <TrendingMovies />
 
       {/* Favorite People - Directors and Actors */}
       <div className="grid gap-6 lg:grid-cols-2">
