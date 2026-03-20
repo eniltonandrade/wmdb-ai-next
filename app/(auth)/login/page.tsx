@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold">Bem-vindo de volta</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl font-bold sm:text-3xl">Bem-vindo de volta</h1>
+        <p className="text-sm text-muted-foreground sm:text-base">
           Entre na sua conta para continuar
         </p>
       </div>

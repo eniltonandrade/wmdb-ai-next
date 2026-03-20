@@ -80,7 +80,7 @@ export default function MovieDetailsPage() {
   return (
     <div className="-m-4 min-h-screen bg-background text-white lg:-m-8">
       {/* Hero Section with Backdrop */}
-      <div className="relative h-[60vh] overflow-hidden">
+      <div className="relative h-[40vh] overflow-hidden sm:h-[50vh] md:h-[60vh]">
         {backdropUrl && (
           <>
             <div
@@ -93,10 +93,10 @@ export default function MovieDetailsPage() {
       </div>
 
       {/* Main Content */}
-      <div className="relative -mt-64 px-8 pb-16">
+      <div className="relative -mt-32 px-4 pb-8 sm:-mt-48 sm:px-6 md:-mt-64 md:px-8 md:pb-16">
         <div className="mx-auto max-w-7xl">
           {/* Back Button */}
-          <div className="mb-8">
+          <div className="mb-4 sm:mb-6 md:mb-8">
             <button
               onClick={() => router.back()}
               className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
@@ -106,7 +106,7 @@ export default function MovieDetailsPage() {
             </button>
           </div>
 
-          <div className="flex gap-12">
+          <div className="flex flex-col gap-6 sm:gap-8 lg:flex-row lg:gap-12">
             {/* Poster */}
             <div className="flex-shrink-0">
               {posterUrl ? (
@@ -115,18 +115,18 @@ export default function MovieDetailsPage() {
                   alt={movie.title}
                   width={280}
                   height={420}
-                  className="w-[280px] rounded-lg shadow-2xl"
+                  className="w-full rounded-lg shadow-2xl sm:w-[200px] lg:w-[280px]"
                   priority
                 />
               ) : (
-                <div className="flex aspect-[2/3] w-[280px] items-center justify-center rounded-lg bg-[#1c1b1b]">
+                <div className="flex aspect-[2/3] w-full items-center justify-center rounded-lg bg-[#1c1b1b] sm:w-[200px] lg:w-[280px]">
                   <span className="text-muted-foreground">Sem pôster</span>
                 </div>
               )}
             </div>
 
             {/* Movie Info */}
-            <div className="flex-1 pt-8">
+            <div className="flex-1 pt-0 sm:pt-4 lg:pt-8">
               {/* Genres & Year */}
               <div className="mb-4 flex items-center gap-3">
                 <span className="text-sm font-medium tracking-widest text-primary uppercase">
@@ -143,7 +143,7 @@ export default function MovieDetailsPage() {
               </div>
 
               {/* Title */}
-              <h1 className="mb-6 font-serif text-6xl leading-tight italic">
+              <h1 className="mb-4 font-serif text-3xl leading-tight italic sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">
                 {movie.title}
               </h1>
 
@@ -184,12 +184,12 @@ export default function MovieDetailsPage() {
               )}
 
               {/* Overview */}
-              <p className="mb-8 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+              <p className="mb-6 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:mb-8 sm:text-base lg:text-lg">
                 {movie.overview}
               </p>
 
               {/* Meta Info */}
-              <div className="mb-8 flex items-center gap-6">
+              <div className="mb-6 flex flex-wrap items-center gap-4 sm:mb-8 sm:gap-6">
                 {movie.runtime && (
                   <div className="text-sm">
                     <span className="tracking-wider text-muted-foreground uppercase">
@@ -213,7 +213,7 @@ export default function MovieDetailsPage() {
 
             {/* Personal Archive Sidebar or Add to List Button */}
             {historyDetail ? (
-              <div className="w-80 self-start rounded-lg bg-[#131313] p-6">
+              <div className="w-full self-start rounded-lg bg-[#131313] p-4 sm:p-6 lg:w-80">
                 <h3 className="mb-6 text-sm font-medium tracking-widest text-primary uppercase">
                   Arquivo Pessoal
                 </h3>
@@ -294,7 +294,7 @@ export default function MovieDetailsPage() {
                 )}
               </div>
             ) : (
-              <div className="w-80 self-start rounded-lg bg-[#131313] p-6">
+              <div className="w-full self-start rounded-lg bg-[#131313] p-4 sm:p-6 lg:w-80">
                 <h3 className="mb-6 text-sm font-medium tracking-widest text-primary uppercase">
                   Arquivo Pessoal
                 </h3>
@@ -314,9 +314,11 @@ export default function MovieDetailsPage() {
 
           {/* The Ensemble - Smaller */}
           {mainCast.length > 0 && (
-            <div className="mt-16">
-              <div className="mb-6 flex items-center justify-between">
-                <h2 className="text-2xl font-bold">Elenco Principal</h2>
+            <div className="mt-8 sm:mt-12 lg:mt-16">
+              <div className="mb-4 flex items-center justify-between sm:mb-6">
+                <h2 className="text-xl font-bold sm:text-2xl">
+                  Elenco Principal
+                </h2>
                 {remainingCast.length > 0 && (
                   <Button
                     variant="outline"
@@ -329,7 +331,7 @@ export default function MovieDetailsPage() {
                   </Button>
                 )}
               </div>
-              <div className="grid grid-cols-5 gap-4 md:grid-cols-8 lg:grid-cols-10">
+              <div className="grid grid-cols-3 gap-3 sm:grid-cols-4 sm:gap-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10">
                 {mainCast.map((person) => (
                   <div
                     key={person.id}
@@ -370,11 +372,11 @@ export default function MovieDetailsPage() {
 
           {/* Production Houses */}
           {movie.production_companies.length > 0 && (
-            <div className="mt-16">
+            <div className="mt-8 sm:mt-12 lg:mt-16">
               <h3 className="mb-6 text-sm font-medium tracking-widest text-primary uppercase">
                 Produtoras
               </h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
                 {movie.production_companies.slice(0, 4).map((company) => (
                   <div
                     key={company.id}
@@ -390,11 +392,11 @@ export default function MovieDetailsPage() {
           )}
 
           {/* Archive Specs */}
-          <div className="mt-16 rounded-lg bg-[#131313] p-6">
+          <div className="mt-8 rounded-lg bg-[#131313] p-4 sm:mt-12 sm:p-6 lg:mt-16">
             <h3 className="mb-6 text-sm font-medium tracking-widest text-primary uppercase">
               Especificações
             </h3>
-            <div className="grid grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 sm:gap-6">
               {movie.runtime && (
                 <div>
                   <div className="mb-2 text-xs tracking-wider text-muted-foreground uppercase">
@@ -437,7 +439,7 @@ export default function MovieDetailsPage() {
           </div>
 
           {/* Footer Credits */}
-          <div className="mt-16 flex justify-between border-t border-[#1c1b1b] pt-8 text-sm">
+          <div className="mt-8 flex flex-col gap-4 border-t border-[#1c1b1b] pt-6 text-sm sm:mt-12 sm:flex-row sm:justify-between sm:pt-8 lg:mt-16">
             {directors.length > 0 && (
               <div>
                 <span className="tracking-wider text-muted-foreground uppercase">

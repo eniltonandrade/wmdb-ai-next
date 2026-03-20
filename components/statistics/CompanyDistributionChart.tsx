@@ -47,12 +47,14 @@ export function CompanyDistributionChart({
 
   return (
     <>
-      <div className="rounded-lg border bg-card p-6">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Distribuição de Produtoras</h2>
+      <div className="rounded-lg border bg-card p-4 sm:p-6">
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="text-lg font-semibold sm:text-xl">
+            Distribuição de Produtoras
+          </h2>
 
           {/* Sort Toggle */}
-          <div className="flex gap-1">
+          <div className="flex gap-1 self-start sm:self-auto">
             <button
               onClick={() => setSortBy("quantity")}
               className={cn(
@@ -120,13 +122,14 @@ export function CompanyDistributionChart({
 
         {/* View All Button */}
         {companies.length > limit && (
-          <div className="mt-4 border-t pt-4">
+          <div className="mt-3 border-t pt-3 sm:mt-4 sm:pt-4">
             <Button
               variant="outline"
+              size="sm"
               className="w-full"
               onClick={() => setIsModalOpen(true)}
             >
-              Ver Todas as Produtoras ({companies.length})
+              Ver Todas ({companies.length})
             </Button>
           </div>
         )}
@@ -170,10 +173,10 @@ function CompanyModal({
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-h-[90vh] max-w-2xl">
         <DialogHeader>
-          <div className="flex items-center justify-between">
-            <DialogTitle className="text-2xl font-semibold">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <DialogTitle className="text-xl font-semibold sm:text-2xl">
               Todas as Produtoras
             </DialogTitle>
             {/* Sort Toggle */}
@@ -207,7 +210,7 @@ function CompanyModal({
         </DialogHeader>
 
         {/* Content */}
-        <div className="max-h-[60vh] space-y-3 overflow-y-auto pr-2">
+        <div className="max-h-[50vh] space-y-3 overflow-y-auto pr-2 sm:max-h-[60vh]">
           {sortedCompanies.map((company) => {
             const value =
               sortBy === "quantity" ? company.appearances : company.avgRating

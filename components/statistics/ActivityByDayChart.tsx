@@ -39,9 +39,9 @@ export function ActivityByDayChart({
 }: ActivityByDayChartProps) {
   if (isLoading) {
     return (
-      <div className="rounded-lg border bg-card p-6">
+      <div className="rounded-lg border bg-card p-4 sm:p-6">
         <div className="mb-4 h-6 w-48 animate-pulse rounded bg-muted" />
-        <div className="h-80 animate-pulse rounded bg-muted" />
+        <div className="h-64 animate-pulse rounded bg-muted sm:h-80" />
       </div>
     )
   }
@@ -57,17 +57,19 @@ export function ActivityByDayChart({
   const totalMovies = chartData.reduce((sum, day) => sum + day.count, 0)
 
   return (
-    <div className="rounded-lg border bg-card p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Atividade por Dia da Semana</h2>
-        <div className="text-sm text-muted-foreground">
+    <div className="rounded-lg border bg-card p-4 sm:p-6">
+      <div className="mb-4 flex flex-col gap-2 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-lg font-semibold sm:text-xl">
+          Atividade por Dia da Semana
+        </h2>
+        <div className="text-xs text-muted-foreground sm:text-sm">
           Total:{" "}
           <span className="font-semibold text-foreground">{totalMovies}</span>
         </div>
       </div>
 
       {/* Chart */}
-      <ResponsiveContainer width="100%" height={280}>
+      <ResponsiveContainer width="100%" height={240} className="sm:!h-[280px]">
         <BarChart
           data={chartData}
           margin={{ top: 20, right: 10, left: 10, bottom: 5 }}

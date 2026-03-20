@@ -109,15 +109,15 @@ export default function PersonDetailsPage() {
   return (
     <div className="-m-4 min-h-screen bg-background text-white lg:-m-8">
       {/* Hero Section */}
-      <div className="relative h-[40vh] overflow-hidden bg-gradient-to-b from-[#1c1b1b] to-[#0e0e0e]">
+      <div className="relative h-[30vh] overflow-hidden bg-gradient-to-b from-[#1c1b1b] to-[#0e0e0e] sm:h-[35vh] md:h-[40vh]">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0e0e0e]/60 to-[#0e0e0e]" />
       </div>
 
       {/* Main Content */}
-      <div className="relative -mt-64 px-8 pb-16">
+      <div className="relative -mt-32 px-4 pb-8 sm:-mt-40 sm:px-6 md:-mt-48 md:px-8 md:pb-16 lg:-mt-64">
         <div className="mx-auto max-w-7xl">
           {/* Back Button */}
-          <div className="mb-8">
+          <div className="mb-4 sm:mb-6 md:mb-8">
             <button
               onClick={() => router.back()}
               className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
@@ -159,7 +159,7 @@ export default function PersonDetailsPage() {
               )}
 
               {/* Name */}
-              <h1 className="mb-6 font-serif text-4xl leading-tight italic sm:text-5xl lg:text-6xl">
+              <h1 className="mb-4 font-serif text-3xl leading-tight italic sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">
                 {person.name}
               </h1>
 
@@ -195,7 +195,7 @@ export default function PersonDetailsPage() {
               )}
 
               {/* Personal Info */}
-              <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
+              <div className="mb-6 grid grid-cols-1 gap-3 sm:mb-8 sm:grid-cols-2 sm:gap-4 md:gap-6">
                 {person.birthday && (
                   <div className="text-sm">
                     <span className="tracking-wider text-muted-foreground uppercase">
@@ -267,7 +267,7 @@ export default function PersonDetailsPage() {
 
             {/* Personal Stats Sidebar */}
             {insights && (
-              <div className="w-full self-start rounded-lg bg-[#131313] p-6 lg:w-80">
+              <div className="w-full self-start rounded-lg bg-[#131313] p-4 sm:p-6 lg:w-80">
                 <h3 className="mb-6 text-sm font-medium tracking-widest text-primary uppercase">
                   Estatísticas Pessoais
                 </h3>
@@ -344,10 +344,12 @@ export default function PersonDetailsPage() {
 
           {/* Movie History - Primary Focus */}
           {hasPersonInHistory && (
-            <div className="mt-16">
-              <div className="mb-6 flex items-center justify-between">
+            <div className="mt-8 sm:mt-12 lg:mt-16">
+              <div className="mb-4 flex items-center justify-between sm:mb-6">
                 <div>
-                  <h2 className="text-2xl font-bold">Filmes Assistidos</h2>
+                  <h2 className="text-xl font-bold sm:text-2xl">
+                    Filmes Assistidos
+                  </h2>
                   <p className="mt-1 text-sm text-muted-foreground">
                     {totalMovies > 0
                       ? `${totalMovies} ${totalMovies === 1 ? "filme" : "filmes"} no seu histórico`
@@ -356,7 +358,7 @@ export default function PersonDetailsPage() {
                 </div>
               </div>
               {personMovies.length > 0 ? (
-                <div className="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-6">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4 xl:grid-cols-6">
                   {personMovies.map((historyItem) => (
                     <div
                       key={historyItem.id}
@@ -422,7 +424,7 @@ export default function PersonDetailsPage() {
 
           {/* Empty State - No History with this Person */}
           {!hasPersonInHistory && !isLoadingInsights && (
-            <div className="mt-16">
+            <div className="mt-8 sm:mt-12 lg:mt-16">
               <div className="flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-muted py-16 text-center">
                 <Film className="mb-4 h-12 w-12 text-muted-foreground" />
                 <p className="text-lg font-medium text-muted-foreground">
@@ -441,14 +443,14 @@ export default function PersonDetailsPage() {
               {/* Highest and Lowest Rated Movies - Side by Side */}
               {(uniqueHighestRated.length > 0 ||
                 uniqueLowestRated.length > 0) && (
-                <div className="mt-16 grid gap-8 lg:grid-cols-2">
+                <div className="mt-8 grid gap-6 sm:mt-12 sm:gap-8 lg:mt-16 lg:grid-cols-2">
                   {/* Highest Rated Movies */}
                   {uniqueHighestRated.length > 0 && (
                     <div>
-                      <h2 className="mb-6 text-2xl font-bold">
+                      <h2 className="mb-4 text-xl font-bold sm:mb-6 sm:text-2xl">
                         Filmes Mais Bem Avaliados
                       </h2>
-                      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+                      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
                         {uniqueHighestRated.map((movie) => (
                           <div
                             key={movie.tmdbId}
@@ -497,10 +499,10 @@ export default function PersonDetailsPage() {
                   {/* Lowest Rated Movies */}
                   {uniqueLowestRated.length > 0 && (
                     <div>
-                      <h2 className="mb-6 text-2xl font-bold">
+                      <h2 className="mb-4 text-xl font-bold sm:mb-6 sm:text-2xl">
                         Filmes Menos Bem Avaliados
                       </h2>
-                      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+                      <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
                         {uniqueLowestRated.map((movie) => (
                           <div
                             key={movie.tmdbId}
@@ -550,14 +552,14 @@ export default function PersonDetailsPage() {
 
               {/* Frequent Collaborators */}
               {insights.frequentCollaborators.length > 0 && (
-                <div className="mt-16">
-                  <div className="mb-6 flex items-center gap-2">
-                    <Users className="h-5 w-5" />
-                    <h2 className="text-2xl font-bold">
+                <div className="mt-8 sm:mt-12 lg:mt-16">
+                  <div className="mb-4 flex items-center gap-2 sm:mb-6">
+                    <Users className="h-4 w-4 sm:h-5 sm:w-5" />
+                    <h2 className="text-xl font-bold sm:text-2xl">
                       Colaboradores Frequentes
                     </h2>
                   </div>
-                  <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                     {insights.frequentCollaborators.map((collaborator) => (
                       <div
                         key={collaborator.id}
@@ -598,7 +600,7 @@ export default function PersonDetailsPage() {
               )}
 
               {/* Favorite Genre & Company */}
-              <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="mt-8 grid grid-cols-1 gap-4 sm:mt-12 sm:gap-6 md:grid-cols-2 lg:mt-16">
                 {/* Favorite Genre */}
                 {insights.favoriteGenre && (
                   <div className="rounded-lg bg-[#131313] p-6">

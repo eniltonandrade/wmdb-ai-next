@@ -14,7 +14,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       {/* Mobile Header with Hamburger */}
       <header className="sticky top-0 z-40 border-b bg-background lg:hidden">
         <div className="flex h-16 items-center gap-4 px-4">
@@ -34,7 +34,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
         </div>
       </header>
 
-      <div className="flex">
+      <div className="flex overflow-x-hidden">
         {/* Sidebar - Desktop: always visible, Mobile: toggleable */}
         <aside
           className={cn(
@@ -55,7 +55,9 @@ export function DashboardShell({ children }: DashboardShellProps) {
         )}
 
         {/* Main Content */}
-        <main className="flex-1 p-4 lg:p-8">{children}</main>
+        <main className="min-w-0 flex-1 overflow-x-hidden p-4 lg:p-8">
+          {children}
+        </main>
       </div>
     </div>
   )

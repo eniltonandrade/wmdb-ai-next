@@ -15,7 +15,7 @@ export function GalleryView({ movies, className }: GalleryViewProps) {
   return (
     <div
       className={cn(
-        "grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
+        "grid gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
         className
       )}
     >
@@ -59,20 +59,22 @@ function MovieCard({ item }: MovieCardProps) {
       </div>
 
       {/* Info */}
-      <div className="p-4">
-        <h3 className="line-clamp-2 leading-tight font-semibold">
+      <div className="p-3 sm:p-4">
+        <h3 className="line-clamp-2 text-sm leading-tight font-semibold sm:text-base">
           {movie.title}
         </h3>
 
-        <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="mt-1.5 flex items-center gap-2 text-xs text-muted-foreground sm:mt-2 sm:text-sm">
           <Calendar className="size-3.5" />
           <span>{watchedDate}</span>
         </div>
 
         {rating !== null && (
-          <div className="mt-2 flex items-center gap-1">
-            <Star className="size-4 fill-yellow-400 text-yellow-400" />
-            <span className="font-medium">{rating}/10</span>
+          <div className="mt-1.5 flex items-center gap-1 sm:mt-2">
+            <Star className="size-3.5 fill-yellow-400 text-yellow-400 sm:size-4" />
+            <span className="text-sm font-medium sm:text-base">
+              {rating}/10
+            </span>
           </div>
         )}
 
@@ -89,11 +91,11 @@ function MovieCard({ item }: MovieCardProps) {
 // Loading skeleton for gallery view
 export function GalleryViewSkeleton() {
   return (
-    <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {Array.from({ length: 10 }).map((_, i) => (
         <div key={i} className="overflow-hidden rounded-lg border bg-card">
           <div className="aspect-2/3 animate-pulse bg-muted" />
-          <div className="space-y-3 p-4">
+          <div className="space-y-3 p-3 sm:p-4">
             <div className="h-4 animate-pulse rounded bg-muted" />
             <div className="h-3 w-2/3 animate-pulse rounded bg-muted" />
             <div className="h-3 w-1/2 animate-pulse rounded bg-muted" />

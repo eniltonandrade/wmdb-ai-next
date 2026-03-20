@@ -23,13 +23,13 @@ export function RecentMoviesCarousel() {
 
   if (isLoading) {
     return (
-      <div className="rounded-lg border bg-card p-6">
+      <div className="rounded-lg border bg-card p-4 sm:p-6">
         <div className="mb-4 h-6 w-48 animate-pulse rounded bg-muted" />
-        <div className="flex gap-4 overflow-hidden">
+        <div className="flex gap-3 overflow-hidden sm:gap-4">
           {[...Array(5)].map((_, i) => (
             <div
               key={i}
-              className="h-64 w-44 shrink-0 animate-pulse rounded-lg bg-muted"
+              className="h-48 w-32 shrink-0 animate-pulse rounded-lg bg-muted sm:h-64 sm:w-44"
             />
           ))}
         </div>
@@ -42,15 +42,22 @@ export function RecentMoviesCarousel() {
   }
 
   return (
-    <div className="rounded-lg border bg-card p-6">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="rounded-lg border bg-card p-4 sm:p-6">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h2 className="text-xl font-semibold">Assistidos Recentemente</h2>
-          <p className="text-sm text-muted-foreground">
+          <h2 className="text-lg font-semibold sm:text-xl">
+            Assistidos Recentemente
+          </h2>
+          <p className="text-xs text-muted-foreground sm:text-sm">
             Últimos {recentMovies.length} filmes assistidos
           </p>
         </div>
-        <Button variant="outline" size="sm" asChild>
+        <Button
+          variant="outline"
+          size="sm"
+          asChild
+          className="w-full sm:w-auto"
+        >
           <Link href="/dashboard/history">
             Ver Todos
             <ArrowRight className="ml-2 size-4" />
@@ -64,17 +71,17 @@ export function RecentMoviesCarousel() {
           align: "start",
           loop: false,
         }}
-        className="w-full"
+        className="w-full overflow-hidden"
       >
-        <CarouselContent className="-ml-2 md:-ml-4">
+        <CarouselContent className="-ml-1.5 sm:-ml-2 md:-ml-3 lg:-ml-4">
           {recentMovies.map((item) => (
             <CarouselItem
               key={item.id}
-              className="basis-1/2 pl-2 sm:basis-1/3 md:basis-1/4 md:pl-4 lg:basis-1/5"
+              className="basis-[45%] pl-1.5 sm:basis-1/3 sm:pl-2 md:basis-1/4 md:pl-3 lg:basis-1/5 lg:pl-4"
             >
               <Link
                 href={`/dashboard/movies/${item.movie.tmdbId}`}
-                className="block space-y-2"
+                className="block space-y-1 sm:space-y-2"
               >
                 {/* Movie Poster */}
                 <div className="relative aspect-2/3 w-full overflow-hidden rounded-lg bg-muted transition-transform hover:scale-105">
@@ -94,13 +101,13 @@ export function RecentMoviesCarousel() {
                 </div>
 
                 {/* Movie Info */}
-                <div className="space-y-1">
-                  <h3 className="line-clamp-2 text-sm font-semibold">
+                <div className="space-y-0.5 sm:space-y-1">
+                  <h3 className="line-clamp-2 text-xs font-semibold sm:text-sm">
                     {item.movie.title}
                   </h3>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="size-3" />
+                  <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground sm:gap-2 sm:text-xs">
+                    <div className="flex items-center gap-0.5 sm:gap-1">
+                      <Calendar className="size-2.5 sm:size-3" />
                       <span>
                         {new Date(item.date).toLocaleDateString("pt-BR", {
                           day: "2-digit",
@@ -109,8 +116,8 @@ export function RecentMoviesCarousel() {
                       </span>
                     </div>
                     {item.rating && (
-                      <div className="flex items-center gap-1">
-                        <Star className="size-3 fill-yellow-400 text-yellow-400" />
+                      <div className="flex items-center gap-0.5 sm:gap-1">
+                        <Star className="size-2.5 fill-yellow-400 text-yellow-400 sm:size-3" />
                         <span>{item.rating.toFixed(1)}</span>
                       </div>
                     )}
@@ -120,8 +127,14 @@ export function RecentMoviesCarousel() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-2" variant="default" />
-        <CarouselNext className="right-2" variant="default" />
+        <CarouselPrevious
+          className="left-0 sm:left-1 md:left-2"
+          variant="default"
+        />
+        <CarouselNext
+          className="right-0 sm:right-1 md:right-2"
+          variant="default"
+        />
       </Carousel>
     </div>
   )

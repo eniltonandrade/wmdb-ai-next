@@ -68,9 +68,9 @@ export function HistoryContent() {
       onSearchChange={setSearch}
       onClearSearch={clearSearch}
     >
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Header */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <PageHeader
             total={total}
             searchResults={debouncedSearch ? movies.length : undefined}
@@ -82,7 +82,7 @@ export function HistoryContent() {
         </div>
 
         {/* Search, Sort, and Filter Controls */}
-        <div className="flex flex-col gap-4 sm:flex-row">
+        <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
           <SearchControlsBar
             searchQuery={searchQuery}
             debouncedSearch={debouncedSearch}

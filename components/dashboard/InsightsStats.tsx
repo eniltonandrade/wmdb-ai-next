@@ -13,33 +13,35 @@ export function InsightsStats({ insights }: InsightsStatsProps) {
   const remainingMinutes = insights.totalRuntime % 60
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
       {/* Movies Watched */}
-      <div className="rounded-lg border bg-card p-6">
-        <div className="flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
+      <div className="rounded-lg border bg-card p-4 sm:p-6">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex size-8 items-center justify-center rounded-lg bg-primary/10 sm:size-10">
             <Film className="size-5 text-primary" />
           </div>
           <div>
-            <h3 className="text-sm font-medium text-muted-foreground">
+            <h3 className="text-xs font-medium text-muted-foreground sm:text-sm">
               Filmes Assistidos
             </h3>
-            <p className="mt-1 text-2xl font-bold">{insights.movieCount}</p>
+            <p className="mt-0.5 text-xl font-bold sm:mt-1 sm:text-2xl">
+              {insights.movieCount}
+            </p>
           </div>
         </div>
       </div>
 
       {/* Average Rating */}
-      <div className="rounded-lg border bg-card p-6">
-        <div className="flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
+      <div className="rounded-lg border bg-card p-4 sm:p-6">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex size-8 items-center justify-center rounded-lg bg-primary/10 sm:size-10">
             <Star className="size-5 text-primary" />
           </div>
           <div>
-            <h3 className="text-sm font-medium text-muted-foreground">
+            <h3 className="text-xs font-medium text-muted-foreground sm:text-sm">
               Avaliação Média
             </h3>
-            <p className="mt-1 text-2xl font-bold">
+            <p className="mt-0.5 text-xl font-bold sm:mt-1 sm:text-2xl">
               {insights.averageRating.toFixed(1)}
             </p>
           </div>
@@ -47,16 +49,16 @@ export function InsightsStats({ insights }: InsightsStatsProps) {
       </div>
 
       {/* Total Runtime */}
-      <div className="rounded-lg border bg-card p-6">
-        <div className="flex items-center gap-3">
-          <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10">
+      <div className="rounded-lg border bg-card p-4 sm:p-6">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex size-8 items-center justify-center rounded-lg bg-primary/10 sm:size-10">
             <Clock className="size-5 text-primary" />
           </div>
           <div>
-            <h3 className="text-sm font-medium text-muted-foreground">
+            <h3 className="text-xs font-medium text-muted-foreground sm:text-sm">
               Tempo Total
             </h3>
-            <p className="mt-1 text-2xl font-bold">
+            <p className="mt-0.5 text-xl font-bold sm:mt-1 sm:text-2xl">
               {totalHours}h {remainingMinutes}m
             </p>
           </div>

@@ -50,12 +50,12 @@ export function PeopleRankingChart() {
   }
 
   return (
-    <div className="rounded-lg border bg-card p-6">
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <h2 className="text-xl font-semibold">Ranking de Pessoas</h2>
+    <div className="rounded-lg border bg-card p-4 sm:p-6">
+      <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-lg font-semibold sm:text-xl">Ranking de Pessoas</h2>
 
         {/* Filters */}
-        <div className="flex flex-wrap gap-2 text-sm">
+        <div className="flex flex-wrap gap-2 text-xs sm:text-sm">
           {/* Role Filter */}
           <select
             value={role || ""}
@@ -102,7 +102,7 @@ export function PeopleRankingChart() {
 
       {/* People List - Two Column Grid */}
       {!isLoading && topPeople.length > 0 && (
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
           {topPeople.map((person, index) => {
             const profileUrl = person.profilePath
               ? `https://image.tmdb.org/t/p/w185${person.profilePath}`
@@ -111,16 +111,16 @@ export function PeopleRankingChart() {
             return (
               <div
                 key={person.id}
-                className="flex cursor-pointer items-center gap-3 rounded-lg p-2 text-sm transition-colors hover:bg-accent"
+                className="flex cursor-pointer items-center gap-2 rounded-lg p-2 text-xs transition-colors hover:bg-accent sm:gap-3 sm:text-sm"
                 onClick={() =>
                   router.push(`/dashboard/people/${person.tmdbId}`)
                 }
               >
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-medium sm:h-6 sm:w-6">
                   {index + 1}
                 </span>
                 {profileUrl ? (
-                  <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted">
+                  <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-muted sm:h-10 sm:w-10">
                     <Image
                       src={profileUrl}
                       alt={person.name}
@@ -130,8 +130,8 @@ export function PeopleRankingChart() {
                     />
                   </div>
                 ) : (
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted">
-                    <Users className="h-5 w-5 text-muted-foreground" />
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-muted sm:h-10 sm:w-10">
+                    <Users className="h-4 w-4 text-muted-foreground sm:h-5 sm:w-5" />
                   </div>
                 )}
                 <div className="min-w-0 flex-1">

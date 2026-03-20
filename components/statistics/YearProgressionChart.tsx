@@ -39,18 +39,18 @@ export function YearProgressionChart({
 
   if (isLoading) {
     return (
-      <div className="rounded-lg border bg-card p-6">
+      <div className="rounded-lg border bg-card p-4 sm:p-6">
         <div className="mb-4 h-6 w-48 animate-pulse rounded bg-muted" />
-        <div className="h-80 animate-pulse rounded bg-muted" />
+        <div className="h-64 animate-pulse rounded bg-muted sm:h-80" />
       </div>
     )
   }
 
   if (sortedData.length === 0) {
     return (
-      <div className="rounded-lg border bg-card p-6">
-        <h2 className="mb-4 text-xl font-semibold">{title}</h2>
-        <div className="flex h-80 items-center justify-center text-sm text-muted-foreground">
+      <div className="rounded-lg border bg-card p-4 sm:p-6">
+        <h2 className="mb-4 text-lg font-semibold sm:text-xl">{title}</h2>
+        <div className="flex h-64 items-center justify-center text-sm text-muted-foreground sm:h-80">
           Nenhum dado disponível
         </div>
       </div>
@@ -58,12 +58,12 @@ export function YearProgressionChart({
   }
 
   return (
-    <div className="rounded-lg border bg-card p-6">
-      <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-xl font-semibold">{title}</h2>
+    <div className="rounded-lg border bg-card p-4 sm:p-6">
+      <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-lg font-semibold sm:text-xl">{title}</h2>
 
         {/* Metric Toggle */}
-        <div className="flex gap-1">
+        <div className="flex gap-1 self-start sm:self-auto">
           <button
             onClick={() => setMetric(metric === "count" ? "both" : "count")}
             className={`rounded-md p-1.5 transition-colors ${
@@ -90,7 +90,7 @@ export function YearProgressionChart({
       </div>
 
       {/* Chart */}
-      <ResponsiveContainer width="100%" height={320}>
+      <ResponsiveContainer width="100%" height={260} className="sm:!h-[320px]">
         <LineChart
           data={sortedData}
           margin={{ top: 5, right: 30, left: 20, bottom: 5 }}

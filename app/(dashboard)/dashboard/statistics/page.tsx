@@ -46,19 +46,19 @@ export default function StatisticsPage() {
   const companies = companyData?.results ?? []
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold">Estatísticas</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl font-bold sm:text-3xl">Estatísticas</h1>
+        <p className="text-sm text-muted-foreground sm:text-base">
           Análise detalhada dos seus filmes assistidos
         </p>
       </div>
 
       {/* Statistics Grid */}
-      <div className="space-y-4">
+      <div className="space-y-4 sm:space-y-6">
         {/* Top Row: Genre Distribution and Company Distribution */}
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
           {/* Genre Distribution */}
           {genres.length > 0 ? (
             <GenreDistributionChart genres={genres} limit={5} />
@@ -85,7 +85,7 @@ export default function StatisticsPage() {
         </div>
 
         {/* Second Row: People Ranking and Activity by Day */}
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
           <PeopleRankingChart />
 
           {/* Activity by Day of Week */}
@@ -96,7 +96,7 @@ export default function StatisticsPage() {
         </div>
 
         {/* Third Row: Year Progression Charts */}
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
           {/* Watched Years */}
           <YearProgressionChart
             title="Filmes Assistidos por Ano"

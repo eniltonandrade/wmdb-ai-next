@@ -108,11 +108,13 @@ export default function SearchContent() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Buscar Filmes</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          Buscar Filmes
+        </h1>
+        <p className="text-sm text-muted-foreground sm:text-base">
           Pesquise filmes no banco de dados do TMDB
         </p>
       </div>
@@ -210,10 +212,10 @@ export default function SearchContent() {
 
         {data && data.results.length > 0 && (
           <div>
-            <p className="mb-4 text-sm text-muted-foreground">
+            <p className="mb-3 text-xs text-muted-foreground sm:mb-4 sm:text-sm">
               {data.total_results} resultado(s) encontrado(s)
             </p>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
               {data.results.map((movie) => {
                 const posterUrl = tmdbService.getPosterUrl(
                   movie.poster_path,
@@ -242,11 +244,11 @@ export default function SearchContent() {
                         </div>
                       )}
                     </div>
-                    <div className="p-4">
-                      <h3 className="mb-2 line-clamp-2 leading-tight font-semibold">
+                    <div className="p-3 sm:p-4">
+                      <h3 className="mb-1.5 line-clamp-2 text-sm leading-tight font-semibold sm:mb-2 sm:text-base">
                         {movie.title}
                       </h3>
-                      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground sm:gap-3">
                         {year && (
                           <div className="flex items-center gap-1">
                             <Calendar className="h-3 w-3" />
