@@ -162,7 +162,13 @@ export default function MovieDetailsPage() {
               {directors.length > 0 && (
                 <div className="mb-6 flex items-center gap-4">
                   {directors.map((director) => (
-                    <div key={director.id} className="flex items-center gap-3">
+                    <div
+                      key={director.id}
+                      className="flex cursor-pointer items-center gap-3 transition-transform hover:scale-105"
+                      onClick={() =>
+                        router.push(`/dashboard/people/${director.id}`)
+                      }
+                    >
                       {director.profile_path ? (
                         <Image
                           src={
@@ -174,10 +180,10 @@ export default function MovieDetailsPage() {
                           alt={director.name}
                           width={48}
                           height={48}
-                          className="h-12 w-12 rounded-full border-2 border-primary/30 object-cover"
+                          className="h-12 w-12 rounded-full border-2 border-primary/30 object-cover transition-all hover:border-primary"
                         />
                       ) : (
-                        <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-primary/30 bg-[#1c1b1b]">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-primary/30 bg-[#1c1b1b] transition-all hover:border-primary">
                           <span className="text-lg">👤</span>
                         </div>
                       )}
@@ -185,7 +191,7 @@ export default function MovieDetailsPage() {
                         <div className="text-xs tracking-wider text-muted-foreground uppercase">
                           Direção
                         </div>
-                        <div className="text-sm font-medium">
+                        <div className="text-sm font-medium transition-colors hover:text-primary">
                           {director.name}
                         </div>
                       </div>

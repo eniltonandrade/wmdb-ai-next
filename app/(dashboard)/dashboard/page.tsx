@@ -7,6 +7,13 @@ import { ErrorMessage } from "@/components/error-boundary"
 import { Button } from "@/components/ui/button"
 import { InsightsStats } from "@/components/dashboard/InsightsStats"
 import { RecentMoviesCarousel } from "@/components/dashboard/RecentMoviesCarousel"
+import { ActivityChart } from "@/components/dashboard/ActivityChart"
+import { TopGenres } from "@/components/dashboard/TopGenres"
+import { FavoritePeople } from "@/components/dashboard/FavoritePeople"
+import { FavoriteActors } from "@/components/dashboard/FavoriteActors"
+import { ViewingTrends } from "@/components/dashboard/ViewingTrends"
+import { RatingDistribution } from "@/components/dashboard/RatingDistribution"
+import { TrendingMovies } from "@/components/dashboard/TrendingMovies"
 import { LogOut } from "lucide-react"
 
 export default function DashboardPage() {
@@ -63,8 +70,31 @@ export default function DashboardPage() {
         <InsightsStats insights={insights} />
       ) : null}
 
+      {/* Viewing Trends */}
+      <ViewingTrends />
+
+      {/* Favorite People - Directors and Actors */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <FavoritePeople />
+        <FavoriteActors />
+      </div>
+
       {/* Recent Movies Carousel */}
       <RecentMoviesCarousel />
+
+      {/* Rating Distribution and Activity Chart */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <RatingDistribution />
+        {insights?.activityByDayOfWeek && (
+          <ActivityChart activityByDayOfWeek={insights.activityByDayOfWeek} />
+        )}
+      </div>
+
+      {/* Top Genres and Trending Movies */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <TopGenres />
+        <TrendingMovies />
+      </div>
     </div>
   )
 }
